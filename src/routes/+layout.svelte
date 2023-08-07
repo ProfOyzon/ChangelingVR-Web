@@ -9,8 +9,12 @@
 
     import {page} from "$app/stores";
 
-    import { AppBar } from '@skeletonlabs/skeleton';
+    import { AppBar, Modal } from '@skeletonlabs/skeleton';
 </script>
+
+<!-- This modal component is a SINGLETON element that is modified through a modal store. YOU ONLY NEED THIS ONE. -->
+<!-- Read the Skeleton modal documentation for more details: https://www.skeleton.dev/utilities/modals -->
+<Modal />
 
 <!-- slotDefault is set to hidden because it represents the center piece of an AppBar, and this element does not need a center piece. -->
 <AppBar gridColumns="grid-cols-2" slotDefault="hidden" slotTrail="place-content-end" padding="py-6 px-8">
