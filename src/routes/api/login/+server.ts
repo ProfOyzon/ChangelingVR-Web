@@ -10,23 +10,19 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     const decodedIdToken = await adminAuth.verifyIdToken(idToken);
 
     if (new Date().getTime() / 1000 - decodedIdToken.auth_time < 5 * 60) {
-        try {
-            const cookie = await adminAuth.createSessionCookie(idToken, {
-                expiresIn,
-            });
-            const options = {
-                maxAge: expiresIn,
-                httpOnly: true,
-                secure: true,
-                path: "/",
-            };
+        const cookie = await adminAuth.createSessionCookie(idToken, {
+            expiresIn,
+        });
+        const options = {
+            maxAge: expiresIn,
+            httpOnly: true,
+            secure: true,
+            path: "/",
+        };
 
-            cookies.set("__session", cookie, options);
+        cookies.set("__session", cookie, options);
 
-            return json({ status: "loggedIn" });
-        } catch (e) {
-            return json({ status: `login failed with error: ${e}` });
-        }
+        return json({ status: "loggedIn" });
     } else {
         throw error(401, "Recent sign in required!");
     }
