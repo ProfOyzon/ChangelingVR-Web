@@ -13,7 +13,28 @@
         ref: ModalLoginForm,
     };
 
-    const openFormModal = async () => {
+    const logIn = async (r : any) => {
+        const credential = await signInWithEmailAndPassword(auth, r.email, r.password);
+        const idToken = await credential.user.getIdToken();
+        
+        const res = await fetch("/api/login", {
+            method: "POST",
+            headers: {
+                "Content-Type" : "application/json",
+                // NO CSRF TOKEN NEEDED, SVELTE DOES THIS FOR YOU.
+            },
+            body: JSON.stringify({idToken}),
+        });
+
+        goto("/accounts/login");
+    }
+
+    const logOut = async () => {
+        const res = await fetch("/api/login", { method: "DELETE" });
+        await signOut(auth);
+    }
+
+    const openFormModal = () => {
         new Promise<boolean>((resolve) => {
             const modal: ModalSettings = {
                 type: 'component',
@@ -28,9 +49,7 @@
             modalStore.trigger(modal);
         }).then((r: any) => {
             if(r !== false){
-                signInWithEmailAndPassword(auth, r.email, r.password).then(() => {
-                    goto("/accounts/login");
-                });
+                logIn(r);
             }
         });
     }
@@ -40,6 +59,5 @@
 
 <button class="btn variant-filled-primary" on:click={openFormModal}>Co-op Login</button>
 {#if $user}
-<button class="btn variant-filled-error" on:click={() => signOut(auth)}>Sign out</button>
+<button class="btn variant-filled-error" on:click={logOut}>Sign out</button>
 {/if}
-<a class="btn variant-filled-secondary" href="/accounts/login">Login Page</a>
