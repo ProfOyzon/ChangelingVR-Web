@@ -19,6 +19,7 @@
     import { user, userData} from "$lib/firebase"
     import { logOut } from '$lib/authFunctions';
 
+    // Check if user exists and is not entry account. Exposing this uid is harmless.
     $: loggedIn = $user && $user.uid !== "dqDhsd7n0ePxoSbUrM4YTmXKicf1";
 
     // Popup logic
@@ -42,7 +43,7 @@
     </div>
     <div class="flex w-1/2 justify-end">
         <nav class="flex items-center">
-            <ul class="flex gap-12 items-center">
+            <ul class="flex gap-8 items-center">
                 <li><a href="/about" aria-current={$page.url.pathname === "/about"}>About</a></li>
                 <li><a href="/experiences" aria-current={$page.url.pathname === "/experiences"}>Experiences</a></li>
                 <li><a href="/team" aria-current={$page.url.pathname === "/team"}>Team</a></li>
@@ -51,13 +52,14 @@
         </nav>
         <div class="flex items-center" class:ml-8={$user}>
             {#if loggedIn}
-                <button class="btn-icon btn-icon-lg variant-ghost" use:popup={popupFeatured}><img src={$userData?.photoURL} alt="" width="36px"></button>
+                <button class="btn-icon btn-icon-lg variant-ghost" use:popup={popupFeatured}><img src={$user?.photoURL} alt="" width="36px"></button>
                 <!-- POPUP CONTENT -->
-                <div class="card p-4 w-52 shadow-xl" data-popup="popupFeatured">
+                <div class="card p-4 w-52 shadow-xl text-center" data-popup="popupFeatured">
+                    <p class="mb-2 underline">{$user?.displayName}</p>
                     <ul class="flex flex-col gap-2">
-                        <li class="w-full"><a href="" class="btn variant-filled w-full">View Profile</a></li>
-                        <li class="w-full"><a href="" class="btn variant-filled w-full">Edit Profile</a></li>
-                        <li class="w-full"><button on:click={logOut} class="btn variant-filled-error w-full">Log Out</button></li>
+                        <li class="w-full"><a href="/{$user?.displayName}" class="btn variant-filled-secondary w-full">View Profile</a></li>
+                        <li class="w-full"><a href="/{$user?.displayName}/edit" class="btn variant-filled-secondary w-full">Edit Profile</a></li>
+                        <li class="w-full"><button on:click={logOut} class="btn variant-ghost-error w-full">Log Out</button></li>
                     </ul>
                     <div class="arrow bg-surface-100-800-token" />
                 </div>
