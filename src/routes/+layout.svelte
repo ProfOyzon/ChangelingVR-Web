@@ -56,7 +56,7 @@
                     <Avatar src={$userData?.photoURL ?? "/user.png"} width="w-32" rounded="rounded-full"/>    
                 </button>
                 <!-- POPUP CONTENT -->
-                <div class="card p-4 w-52 shadow-xl text-center" data-popup="popupFeatured">
+                <div class="card p-4 w-52 shadow-xl text-center z-10" data-popup="popupFeatured">
                     <p class="mb-2 underline">{$user?.displayName}</p>
                     <ul class="flex flex-col gap-2">
                         <li class="w-full"><a href="/{$user?.displayName}" class="btn variant-filled-secondary w-full">View Profile</a></li>
