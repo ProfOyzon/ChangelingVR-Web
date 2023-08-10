@@ -9,7 +9,7 @@
     import '../app.postcss';
     // Some FloatingUI imports and logic, makes avatar popup work
     import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
-    import { storePopup } from '@skeletonlabs/skeleton';
+    import { Avatar, storePopup } from '@skeletonlabs/skeleton';
     storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
     import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
 
@@ -52,7 +52,9 @@
         </nav>
         <div class="flex items-center" class:ml-8={$user}>
             {#if loggedIn}
-                <button class="btn-icon btn-icon-lg variant-ghost" use:popup={popupFeatured}><img src={$user?.photoURL} alt="" width="36px"></button>
+                <button class="btn-icon btn-icon-lg variantoverflow-hidden" use:popup={popupFeatured}>
+                    <Avatar src={$userData?.photoURL ?? "/user.png"} width="w-32" rounded="rounded-full"/>    
+                </button>
                 <!-- POPUP CONTENT -->
                 <div class="card p-4 w-52 shadow-xl text-center" data-popup="popupFeatured">
                     <p class="mb-2 underline">{$user?.displayName}</p>

@@ -14,6 +14,7 @@
     import { writable } from "svelte/store";
     import { teams, roles, terms } from "$lib/tags";
     import type { PageData } from "./$types";
+    import { Avatar } from "@skeletonlabs/skeleton";
 
     export let data: PageData;
 
@@ -114,7 +115,7 @@
         uploading = false;
     }
 
-    let bio = data.bio;
+    let bio = $userData?.bio;
     async function updateBio(e: SubmitEvent) {
         const userRef = doc(db, "users", $user!.uid);
 
@@ -151,7 +152,7 @@
         <div class="card p-4 flex flex-col gap-5 max-w-screen-md w-full">
             <!-- Profile and badges -->
             <form class="w-full">
-                <div class="max-w-fit relative w-32">
+                <!-- <div class="max-w-fit relative w-32">
                     <div class="overflow-hidden rounded-full border-2">
                         <img
                             src={previewURL ??
@@ -192,6 +193,36 @@
                             </svg>
                         </button>
                     </label>
+                </div> -->
+                <div class="max-w-fit relative">
+                    <Avatar src={previewURL ?? $userData?.photoURL ?? "/user.png"} width="w-32" rounded="rounded-full"/>
+                    <div class="w-32 h-32 absolute top-0 left-0 rounded-full items-center justify-center flex">
+                        <button 
+                            class="w-32 h-32 absolute top-0 left-0 rounded-full hover:bg-opacity-50 focus:bg-opacity-50 bg-opacity-0 bg-black"
+                            on:click={() => {
+                                document.getElementById("real-file")?.click();
+                            }}
+                            aria-roledescription="change profile image"
+                        >
+                            Change PFP
+                        </button>
+                    </div>
+                    <svg
+                        class="absolute feather feather-edit stroke-tertiary-300 w-7 h-7 top-1 right-1"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                        ><path
+                            d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"
+                        /><path
+                            d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"
+                        />
+                    </svg>
                 </div>
                 <input
                     on:change={upload}

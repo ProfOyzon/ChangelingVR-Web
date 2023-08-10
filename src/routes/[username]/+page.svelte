@@ -2,6 +2,7 @@
     import { page } from "$app/stores";
     import UserLink from "$lib/components/UserLink.svelte";
     import { userData } from "$lib/firebase";
+    import { Avatar } from "@skeletonlabs/skeleton";
     import type { PageData } from "./$types";
 
     export let data: PageData;
@@ -15,9 +16,7 @@
 <main class="flex justify-center p-4">
     <div class="flex flex-col gap-5 max-w-screen-md w-full card p-4">
         <!-- Profile Image -->
-        <div class="w-32 rounded-full overflow-hidden">
-            <img src={data.photoURL ?? "/user.png"} alt="photoURL" />
-        </div>
+        <Avatar src={data.photoURL ?? "/user.png"} width="w-32" rounded="rounded-full"/>
         <h1 class="text-2xl">{data.username}</h1>
         <!-- Username -->
         <!-- Tags -->
