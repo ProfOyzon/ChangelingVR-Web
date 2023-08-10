@@ -26,6 +26,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@floating-ui/dom": "^1.5.1",
     "firebase": "^10.1.0",
     "firebase-admin": "^11.10.1"
   }

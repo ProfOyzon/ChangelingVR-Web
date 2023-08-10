@@ -26,12 +26,7 @@
             body: JSON.stringify({idToken}),
         });
 
-        goto("/accounts/login");
-    }
-
-    const logOut = async () => {
-        const res = await fetch("/api/login", { method: "DELETE" });
-        await signOut(auth);
+        goto("/accounts/signup");
     }
 
     const openFormModal = () => {
@@ -57,7 +52,6 @@
 
 <h1>Team</h1>
 
-<button class="btn variant-filled-primary" on:click={openFormModal}>Co-op Login</button>
-{#if $user}
-<button class="btn variant-filled-error" on:click={logOut}>Sign out</button>
+{#if !$user}
+    <button class="btn variant-filled-primary" on:click={openFormModal}>Co-op Login</button>
 {/if}

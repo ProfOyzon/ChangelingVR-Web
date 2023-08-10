@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     // NOTE: THE ORDER OF THESE IMPORTS IS IMPORTANT! MAKE ALL OTHER IMPORTS AFTER APP.postcss!
     // Your selected Skeleton theme:
     import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
@@ -6,31 +6,65 @@
     import '@skeletonlabs/skeleton/styles/skeleton.css';
     // Finally, your application's global stylesheet (sometimes labeled 'app.css')
     import '../app.postcss';
+    // Some FloatingUI imports and logic, makes avatar popup work
+    import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+    import { storePopup } from '@skeletonlabs/skeleton';
+    storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+    import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
 
     import {page} from "$app/stores";
 
-    import { AppBar, Modal } from '@skeletonlabs/skeleton';
+    import { Modal } from '@skeletonlabs/skeleton';
+    import { user, userData} from "$lib/firebase"
+    import { logOut } from '$lib/authFunctions';
+
+    $: loggedIn = $user && $user.uid !== "dqDhsd7n0ePxoSbUrM4YTmXKicf1";
+
+    // Popup logic
+    const popupFeatured: PopupSettings = {
+        event: "click",
+        target: "popupFeatured",
+        placement: "bottom-end",
+        middleware: {
+            offset: 24,
+        }
+    }
 </script>
 
 <!-- This modal component is a SINGLETON element that is modified through a modal store. YOU ONLY NEED THIS ONE. -->
 <!-- Read the Skeleton modal documentation for more details: https://www.skeleton.dev/utilities/modals -->
 <Modal />
 
-<!-- slotDefault is set to hidden because it represents the center piece of an AppBar, and this element does not need a center piece. -->
-<AppBar gridColumns="grid-cols-2" slotDefault="hidden" slotTrail="place-content-end" padding="py-6 px-8">
-	<svelte:fragment slot="lead">
+<div class="flex w-full min-h-[72px] px-8 bg-surface-800">
+    <div class="flex w-1/2 justify-start items-center">
         <a href="/" aria-current={$page.url.pathname === "/"}>Changeling</a>
-    </svelte:fragment>
-	<svelte:fragment slot="trail">
-        <nav>
-            <ul class="flex gap-12">
+    </div>
+    <div class="flex w-1/2 justify-end">
+        <nav class="flex items-center">
+            <ul class="flex gap-12 items-center">
                 <li><a href="/about" aria-current={$page.url.pathname === "/about"}>About</a></li>
                 <li><a href="/experiences" aria-current={$page.url.pathname === "/experiences"}>Experiences</a></li>
                 <li><a href="/team" aria-current={$page.url.pathname === "/team"}>Team</a></li>
-                <li><a href="https://changelingvrteam.itch.io/changelingvr">Play Now</a></li>
+                <li><a href="https://changelingvrteam.itch.io/changelingvr" class="btn variant-filled-primary">Play Now</a></li>
             </ul>
         </nav>
-    </svelte:fragment>
-</AppBar>
+        <div class="flex items-center" class:ml-8={$user}>
+            {#if loggedIn}
+                <button class="btn-icon btn-icon-lg variant-ghost" use:popup={popupFeatured}><img src={$userData?.photoURL} alt="" width="36px"></button>
+                <!-- POPUP CONTENT -->
+                <div class="card p-4 w-52 shadow-xl" data-popup="popupFeatured">
+                    <ul class="flex flex-col gap-2">
+                        <li class="w-full"><a href="" class="btn variant-filled w-full">View Profile</a></li>
+                        <li class="w-full"><a href="" class="btn variant-filled w-full">Edit Profile</a></li>
+                        <li class="w-full"><button on:click={logOut} class="btn variant-filled-error w-full">Log Out</button></li>
+                    </ul>
+                    <div class="arrow bg-surface-100-800-token" />
+                </div>
+            {:else if $user}
+                <button class="btn btn-sm variant-ringed-error" on:click={logOut}>X</button>
+            {/if}
+        </div>
+    </div>
+</div>
 
 <slot />
