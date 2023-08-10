@@ -1,7 +1,8 @@
 <script lang="ts">
     // NOTE: THE ORDER OF THESE IMPORTS IS IMPORTANT! MAKE ALL OTHER IMPORTS AFTER APP.postcss!
     // Your selected Skeleton theme:
-    import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+    //import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+    import "../theme.postcss"
     // This contains the bulk of Skeletons required styles:
     import '@skeletonlabs/skeleton/styles/skeleton.css';
     // Finally, your application's global stylesheet (sometimes labeled 'app.css')
