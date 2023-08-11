@@ -26,7 +26,7 @@ export const logInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     const credential = await signInWithPopup(auth, provider);
 
-    setAuthCookie(credential);
+    await setAuthCookie(credential);
 };
 
 export const signUpWithGoogle = async () => {
@@ -42,7 +42,7 @@ export const logInWithEmailAndPassword = async (
 ) => {
     const credential = await signInWithEmailAndPassword(auth, email, password);
 
-    setAuthCookie(credential);
+    await setAuthCookie(credential);
 };
 
 export const signUpWithEmailAndPassword = async (
@@ -56,9 +56,9 @@ export const signUpWithEmailAndPassword = async (
         password
     );
 
-    updateProfile(credential.user, { displayName: username });
+    await updateProfile(credential.user, { displayName: username });
 
-    setAuthCookie(credential);
+    await setAuthCookie(credential);
 };
 
 export const logOut = async () => {

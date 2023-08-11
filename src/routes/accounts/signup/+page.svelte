@@ -19,6 +19,7 @@
 
     async function signUp() {
         signUpWithEmailAndPassword(formData.email, formData.password, formData.username).then(() => {
+            createBaseAccountInfo();
             goto("/team");
         });
     }

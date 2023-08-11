@@ -15,9 +15,9 @@ export const load = (async () => {
         data.push(doc.data());
     }
 
-    if (!exists) {
-        throw error(404, "No users found");
-    }
+    // if (!exists) {
+    //     throw error(404, "No users found");
+    // }
 
     return {
         users: data,

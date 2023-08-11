@@ -20,7 +20,7 @@
     import { logOut } from '$lib/authFunctions';
 
     // Check if user exists and is not entry account. Exposing this uid is harmless.
-    $: loggedIn = $user && $user.uid !== "dqDhsd7n0ePxoSbUrM4YTmXKicf1";
+    $: loggedIn = $user && $user.uid !== "DCIIQ24N0XPNIcpTFPFuVqR6wLO2";
 
     // Popup logic
     const profilePopup: PopupSettings = {

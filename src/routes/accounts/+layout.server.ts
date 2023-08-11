@@ -5,6 +5,7 @@ export const load = (async ({ locals, params }) => {
     const uid = locals.userID;
 
     if (!uid) {
+        console.log(locals.userID);
         throw redirect(301, "/team");
     }
 }) satisfies LayoutServerLoad;
