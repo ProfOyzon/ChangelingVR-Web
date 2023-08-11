@@ -23,9 +23,9 @@
     $: loggedIn = $user && $user.uid !== "dqDhsd7n0ePxoSbUrM4YTmXKicf1";
 
     // Popup logic
-    const popupFeatured: PopupSettings = {
+    const profilePopup: PopupSettings = {
         event: "click",
-        target: "popupFeatured",
+        target: "profilePopup",
         placement: "bottom-end",
         middleware: {
             offset: 24,
@@ -52,11 +52,11 @@
         </nav>
         <div class="flex items-center" class:ml-8={$user}>
             {#if loggedIn}
-                <button class="btn-icon btn-icon-lg variantoverflow-hidden" use:popup={popupFeatured}>
+                <button class="btn-icon btn-icon-lg variantoverflow-hidden" use:popup={profilePopup}>
                     <Avatar src={$userData?.photoURL ?? "/user.png"} width="w-32" rounded="rounded-full"/>    
                 </button>
                 <!-- POPUP CONTENT -->
-                <div class="card p-4 w-52 shadow-xl text-center z-10" data-popup="popupFeatured">
+                <div class="card p-4 w-52 shadow-xl text-center z-10" data-popup="profilePopup">
                     <p class="mb-2 underline">{$user?.displayName}</p>
                     <ul class="flex flex-col gap-2">
                         <li class="w-full"><a href="/{$user?.displayName}" class="btn variant-filled-secondary w-full">View Profile</a></li>
