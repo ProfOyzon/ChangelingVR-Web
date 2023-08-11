@@ -7,6 +7,7 @@ export const teams = [
     "Tech Art",
     "Aesthetic Art",
     "Audio",
+    "Under the Hood",
 ];
 
 export const roles = [
