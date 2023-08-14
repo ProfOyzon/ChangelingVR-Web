@@ -329,11 +329,7 @@
     <!-- TEAM MEMBER GRID -->
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 3xl:grid-cols-8 gap-4 p-4">
         {#each paginatedUsers as user}
-            <div class="card bg-base-100 shadow-xl overflow-hidden rounded-xl">
-                <header 
-                    style={`background-image: url(${user.photoURL}); background-size`} 
-                    class='h-64 bg-cover bg-no-repeat bg-center'
-                />
+            <a href="/{user.username}" class="card shadow-xl rounded-xl">
                 <div class="card-body p-4">
                     <h2 class="card-title">{user.username}</h2>
                     <div class="mb-4">
@@ -341,26 +337,36 @@
                             <div class="badge variant-outline-tertiary">{tag.text}</div>
                         {/each}
                     </div>
-                    <footer>
-                        <a
-                            class="btn variant-filled-secondary w-full mt-auto"
-                            href={`/${user.username}`}>See Profile</a
-                        >
-                    </footer>
                 </div>
-            </div>
+            </a>
         {/each}
     </div>
     <div class="flex justify-center my-16 gap-2">
-        <button
-            class="btn btn-primary"
-            disabled={currentPage === 1}
-            on:click={() => setCurrentPage(currentPage - 1)}>Previous</button
-        >
-        <button
-            class="btn btn-primary"
-            disabled={currentPage === totalPages}
-            on:click={() => setCurrentPage(currentPage + 1)}>Next</button
-        >
+        <div class="flex justify-center my-16 gap-2">
+            <button
+                class="btn"
+                disabled={currentPage === 1}
+                class:variant-filled={currentPage !== 1}
+                on:click={() => setCurrentPage(currentPage - 1)}>Previous</button
+            >
+            {#each Array.from({ length: totalPages }) as _, i}
+                <button
+                    class="btn"
+                    class:variant-filled={currentPage === i + 1}
+                    on:click={() => setCurrentPage(i + 1)}
+                    disabled={currentPage === i + 1}
+                >
+                    {i + 1}
+                </button>
+            {/each}
+            <button
+                class="btn"
+                disabled={currentPage === totalPages}
+                class:variant-filled={currentPage !== totalPages}
+                on:click={() => setCurrentPage(currentPage + 1)}
+            >
+                Next
+            </button>
+        </div>
     </div>
 </AppShell>
