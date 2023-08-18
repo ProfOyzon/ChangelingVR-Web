@@ -1,117 +1,13 @@
 <script lang="ts">
-    import ModalLoginForm from '$lib/components/ModalLoginForm.svelte';
-    import { modalStore, type ModalComponent, type ModalSettings, localStorageStore, AppShell, Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+    import { modalStore, type ModalComponent, type ModalSettings, localStorageStore, AppShell, Accordion, AccordionItem, type DrawerSettings } from '@skeletonlabs/skeleton';
     import type { PageData } from './$types';
-    import { user } from '$lib/firebase';
     import { goto } from '$app/navigation';
     import { logInWithEmailAndPassword } from '$lib/authFunctions';
-    import type { Writable } from 'svelte/store';
-    import { roles, teams, terms } from '$lib/tags';
-    import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+    import { drawerStore } from '@skeletonlabs/skeleton';
+    import TeamFilters from '$lib/components/TeamFilters.svelte';
+    import { filteredTeamData } from '$lib/teamData';
     
     export let data: PageData;
-
-    // Logs the user in and navigates to the signup page
-    const logIn = async (r : any) => {
-        logInWithEmailAndPassword(r.email, r.password).then(() => {
-            goto("/accounts/signup");
-        });
-    }
-
-    // Modal logic
-    const modalComponent: ModalComponent = {
-        // Pass a reference to your custom component
-        ref: ModalLoginForm,
-    };
-
-    const openFormModal = () => {
-        new Promise<boolean>((resolve) => {
-            const modal: ModalSettings = {
-                type: 'component',
-                title: "Co-op Login",
-                body: "Log in using a Changeling co-op account. <span class='text-warning-400'>This is for co-op members only.</span>",
-                // Pass the component directly:
-                component: modalComponent,
-                response: (r: boolean) => {
-                    resolve(r);
-                }
-            };
-            modalStore.trigger(modal);
-        }).then((r: any) => {
-            if(r !== false){
-                logIn(r);
-            }
-        });
-    }
-
-    // Filter Logic ----------------------
-    let displayedUsers = data.users;
-
-    interface FilterData {
-        name: string;
-        tags: {teamTags: string[]; roleTags: string[]; termTags: string[];}
-    }
-
-    const filterDefaults: FilterData = {
-        name: "",
-        tags: {
-            teamTags: [],
-            roleTags: [],
-            termTags: [],
-        },
-    };
-
-    const filterData: Writable<FilterData> = localStorageStore("filterData", filterDefaults);
-
-    // Helper function to check if any tag from a list is present in the user's tags
-    function hasMatchingTag(tagList: string[], userTags: string[]) {
-        if (tagList.length === 0) return true;
-        const lowercaseTags = tagList.map((tag) => tag.toLowerCase());
-        return lowercaseTags.some((tag) => userTags.includes(tag));
-    }
-
-    function filterUsers() {
-        const lowercaseName = $filterData.name.toLowerCase();
-
-        displayedUsers = data.users.filter((user) => {
-            const lowercaseUserName = user.username.toLowerCase();
-
-            // Define userTags for each user here
-            const userTags = user.tags.map(
-                (tag: { text: string; id: number }) => tag.text.toLowerCase()
-            );
-
-            // Check if the username starts with the lowercaseName
-            const nameMatches = lowercaseUserName.startsWith(lowercaseName);
-
-            // Check if team tags, role tags, and term tags match
-            const hasMatchingTeamTag = hasMatchingTag(
-                $filterData.tags.teamTags,
-                userTags
-            );
-            const hasMatchingRoleTag = hasMatchingTag(
-                $filterData.tags.roleTags,
-                userTags
-            );
-            const hasMatchingTermTag = hasMatchingTag(
-                $filterData.tags.termTags,
-                userTags
-            );
-
-            return (
-                nameMatches &&
-                hasMatchingTeamTag &&
-                hasMatchingRoleTag &&
-                hasMatchingTermTag
-            );
-        });
-    }
-
-    function clearFilterData() {
-        // Clear filter data
-        filterData.set(JSON.parse(JSON.stringify(filterDefaults)));
-        filterUsers();
-    }
 
     // Pagination Logic ----------------------
     let currentPage = 1;
@@ -120,8 +16,8 @@
     let startIndex = (currentPage - 1) * usersPerPage;
     let endIndex = startIndex + usersPerPage;
 
-    $: totalPages = Math.ceil(displayedUsers.length / usersPerPage);
-    $: paginatedUsers = displayedUsers.slice(startIndex, endIndex);
+    $: totalPages = Math.ceil($filteredTeamData.length / usersPerPage);
+    $: paginatedUsers = $filteredTeamData.slice(startIndex, endIndex);
 
     function setCurrentPage(page: number) {
         currentPage = Math.max(1, Math.min(page, totalPages));
@@ -129,96 +25,12 @@
         endIndex = startIndex + usersPerPage;
         window.scrollTo(0, 0);
     }
+
+    const settings: DrawerSettings = {id: "team-filters"};
 </script>
 
-<Drawer>
-    <aside class="flex flex-col p-4">
-        <form>
-            <input
-                type="search"
-                placeholder="Search by name..."
-                class="input"
-                bind:value={$filterData.name}
-                on:input={filterUsers}
-            />
-        </form>
-        <Accordion>
-            <AccordionItem>
-                <svelte:fragment slot="summary">Team</svelte:fragment>
-                <svelte:fragment slot="content">
-                    <ul class="p-4">
-                        {#each teams as team}
-                            <label class="label cursor-pointer">
-                                {team}
-                                <input
-                                    type="checkbox"
-                                    class="checkbox"
-                                    bind:group={$filterData.tags.teamTags}
-                                    value={team}
-                                    on:change={filterUsers}
-                                />
-                            </label>
-                        {/each}
-                    </ul>
-                </svelte:fragment>
-            </AccordionItem>
-            <AccordionItem>
-                <svelte:fragment slot="summary">Role</svelte:fragment>
-                <svelte:fragment slot="content">
-                    <ul class="p-4">
-                        {#each roles as role}
-                            <label class="label cursor-pointer">
-                                {role}
-                                <input
-                                    type="checkbox"
-                                    class="checkbox"
-                                    bind:group={$filterData.tags.teamTags}
-                                    value={role}
-                                    on:change={filterUsers}
-                                />
-                            </label>
-                        {/each}
-                    </ul>
-                </svelte:fragment>
-            </AccordionItem>
-            <AccordionItem>
-                <svelte:fragment slot="summary">Term</svelte:fragment>
-                <svelte:fragment slot="content">
-                    <ul class="p-4">
-                        {#each terms as term}
-                            <label class="label cursor-pointer">
-                                {term}
-                                <input
-                                    type="checkbox"
-                                    class="checkbox"
-                                    bind:group={$filterData.tags.teamTags}
-                                    value={term}
-                                    on:change={filterUsers}
-                                />
-                            </label>
-                        {/each}
-                    </ul>
-                </svelte:fragment>
-            </AccordionItem>
-        </Accordion>
-        <button
-            class="btn variant-ghost-error"
-            disabled={$filterData.name === "" &&
-                !$filterData.tags.teamTags.length &&
-                !$filterData.tags.roleTags.length &&
-                !$filterData.tags.termTags.length}
-            on:click={clearFilterData}
-        >
-            Clear Filters
-        </button>
-        {#if !$user}
-            <button class="btn variant-filled-primary" on:click={openFormModal}>Co-op Login</button>
-        {/if}
-    </aside>
-</Drawer>
-
 <!-- DRAWER BUTTON -->
-<button class="lg:hidden btn btn-icon btn-icon-lg variant-filled fixed bottom-2 right-2 shadow-lg" on:click={() => {drawerStore.open({})}}>
+<button class="lg:hidden btn btn-icon btn-icon-lg variant-filled fixed bottom-2 right-2 shadow-lg" on:click={() => {drawerStore.open(settings)}}>
     <span>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="32" height="32" viewBox="0 0 256 256" xml:space="preserve">
 
@@ -241,89 +53,7 @@
 
 <AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64">
     <svelte:fragment slot="sidebarLeft">
-        <aside class="flex flex-col p-4">
-            <form>
-                <input
-                    type="search"
-                    placeholder="Search by name..."
-                    class="input"
-                    bind:value={$filterData.name}
-                    on:input={filterUsers}
-                />
-            </form>
-            <Accordion>
-                <AccordionItem>
-                    <svelte:fragment slot="summary">Team</svelte:fragment>
-                    <svelte:fragment slot="content">
-                        <ul class="p-4">
-                            {#each teams as team}
-                                <label class="label cursor-pointer">
-                                    {team}
-                                    <input
-                                        type="checkbox"
-                                        class="checkbox"
-                                        bind:group={$filterData.tags.teamTags}
-                                        value={team}
-                                        on:change={filterUsers}
-                                    />
-                                </label>
-                            {/each}
-                        </ul>
-                    </svelte:fragment>
-                </AccordionItem>
-                <AccordionItem>
-                    <svelte:fragment slot="summary">Role</svelte:fragment>
-                    <svelte:fragment slot="content">
-                        <ul class="p-4">
-                            {#each roles as role}
-                                <label class="label cursor-pointer">
-                                    {role}
-                                    <input
-                                        type="checkbox"
-                                        class="checkbox"
-                                        bind:group={$filterData.tags.teamTags}
-                                        value={role}
-                                        on:change={filterUsers}
-                                    />
-                                </label>
-                            {/each}
-                        </ul>
-                    </svelte:fragment>
-                </AccordionItem>
-                <AccordionItem>
-                    <svelte:fragment slot="summary">Term</svelte:fragment>
-                    <svelte:fragment slot="content">
-                        <ul class="p-4">
-                            {#each terms as term}
-                                <label class="label cursor-pointer">
-                                    {term}
-                                    <input
-                                        type="checkbox"
-                                        class="checkbox"
-                                        bind:group={$filterData.tags.teamTags}
-                                        value={term}
-                                        on:change={filterUsers}
-                                    />
-                                </label>
-                            {/each}
-                        </ul>
-                    </svelte:fragment>
-                </AccordionItem>
-            </Accordion>
-            <button
-                class="btn variant-ghost-error"
-                disabled={$filterData.name === "" &&
-                    !$filterData.tags.teamTags.length &&
-                    !$filterData.tags.roleTags.length &&
-                    !$filterData.tags.termTags.length}
-                on:click={clearFilterData}
-            >
-                Clear Filters
-            </button>
-            {#if !$user}
-                <button class="btn variant-filled-primary" on:click={openFormModal}>Co-op Login</button>
-            {/if}
-        </aside>
+        <TeamFilters />
     </svelte:fragment>
 
     <!-- TEAM MEMBER GRID -->

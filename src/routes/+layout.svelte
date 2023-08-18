@@ -18,6 +18,11 @@
     import { Modal } from '@skeletonlabs/skeleton';
     import { user, userData} from "$lib/firebase"
     import { logOut } from '$lib/authFunctions';
+    import NavList from "$lib/components/NavList.svelte";
+    import { Drawer, drawerStore } from '@skeletonlabs/skeleton';
+    import type { DrawerSettings } from '@skeletonlabs/skeleton';
+    import { draw } from "svelte/transition";
+    import TeamFilters from "$lib/components/TeamFilters.svelte";
 
     // Check if user exists and is not entry account. Exposing this uid is harmless.
     $: loggedIn = $user && $user.uid !== "DCIIQ24N0XPNIcpTFPFuVqR6wLO2";
@@ -31,25 +36,41 @@
             offset: 24,
         }
     }
+
+    const settings: DrawerSettings = {id: "nav-list"}
 </script>
 
 <!-- This modal component is a SINGLETON element that is modified through a modal store. YOU ONLY NEED THIS ONE. -->
 <!-- Read the Skeleton modal documentation for more details: https://www.skeleton.dev/utilities/modals -->
 <Modal />
 
-<div class="flex w-full min-h-[72px] px-8 bg-surface-800">
+<Drawer>
+    {#if $drawerStore.id === "nav-list"}
+        <NavList flexDirection="flex-col"/>
+    {:else if $drawerStore.id === "team-filters"}
+        <TeamFilters />
+    {/if}
+</Drawer>
+
+<div class="flex w-full max-h-[72px] px-8 py-3 bg-surface-800">
+    <button class="btn pl-0 lg:hidden" on:click={() => {drawerStore.open(settings)}}>
+        <svg viewBox="0 0 100 100" width="25" height="25">
+            <g color="white">
+                <rect y="11.1" width="100" height="11.1" fill="currentcolor"></rect>
+                <rect y="44.4" width="100" height="11.1" fill="currentcolor"></rect>
+                <rect y="77.7" width="100" height="11.1" fill="currentcolor"></rect>
+            </g>
+        </svg>
+    </button>
     <div class="flex w-1/2 justify-start items-center">
-        <a href="/" aria-current={$page.url.pathname === "/"}>Changeling</a>
+        <a href="/" class="h-full" aria-current={$page.url.pathname === "/"} aria-label="home">
+            <img src="/logo.png" alt="changeling logo" class="h-full"/>
+        </a>
     </div>
     <div class="flex w-1/2 justify-end">
-        <nav class="flex items-center">
-            <ul class="flex gap-8 items-center">
-                <li><a href="/about" aria-current={$page.url.pathname === "/about"}>About</a></li>
-                <li><a href="/experiences" aria-current={$page.url.pathname === "/experiences"}>Experiences</a></li>
-                <li><a href="/team" aria-current={$page.url.pathname === "/team"}>Team</a></li>
-                <li><a href="https://changelingvrteam.itch.io/changelingvr" class="btn variant-filled-primary">Play Now</a></li>
-            </ul>
-        </nav>
+        <div class="hidden lg:block">
+            <NavList />
+        </div>
         <div class="flex items-center" class:ml-8={$user}>
             {#if loggedIn}
                 <button class="btn-icon btn-icon-lg variantoverflow-hidden" use:popup={profilePopup}>
