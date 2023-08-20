@@ -1,23 +1,11 @@
-import { collection, getDocs, query, writeBatch } from "firebase/firestore";
-import { db } from "$lib/firebase";
+import type {DocumentData} from "firebase/firestore";
 import { derived, writable, type Writable } from "svelte/store";
 import { localStorageStore } from "@skeletonlabs/skeleton";
-
-const collectionRef = collection(db, "users");
-
-const q = query(collectionRef);
-const snapshot = await getDocs(q);
-// const exists = snapshot.docs[0]?.exists();
 
 function hasMatchingTag(tagList: string[], userTags: string[]) {
     if (tagList.length === 0) return true;
     const lowercaseTags = tagList.map((tag) => tag.toLowerCase());
     return lowercaseTags.some((tag) => userTags.includes(tag));
-}
-
-let data = [];
-for (let doc of snapshot.docs) {
-    data.push(doc.data());
 }
 
 interface FilterData {
@@ -34,7 +22,7 @@ const filterDefaults: FilterData = {
 };
 export const filterData: Writable<FilterData> = localStorageStore("filterData", filterDefaults);
 
-export const teamData = writable(data);
+export const teamData = writable<DocumentData[]>([]);
 export const filteredTeamData = derived([teamData, filterData], ([$teamData, $filterData]) => $teamData.filter((user) => {
     const lowercaseUserName = user.username.toLowerCase();
 
