@@ -1,8 +1,6 @@
 <script lang="ts">
-    import { modalStore, type ModalComponent, type ModalSettings, localStorageStore, AppShell, Accordion, AccordionItem, type DrawerSettings } from '@skeletonlabs/skeleton';
+    import { AppShell, type DrawerSettings } from '@skeletonlabs/skeleton';
     import type { PageData } from './$types';
-    import { goto } from '$app/navigation';
-    import { logInWithEmailAndPassword } from '$lib/authFunctions';
     import { drawerStore } from '@skeletonlabs/skeleton';
     import TeamFilters from '$lib/components/TeamFilters.svelte';
     import { filteredTeamData } from '$lib/teamData';
@@ -49,7 +47,7 @@
                 <path d="M 45 14.103 c -1.104 0 -2 -0.896 -2 -2 V 2 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 10.103 C 47 13.207 46.104 14.103 45 14.103 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
                 <path d="M 74.795 90 c -1.104 0 -2 -0.896 -2 -2 V 73.177 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 V 88 C 76.795 89.104 75.899 90 74.795 90 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
             </g>
-            </svg>
+        </svg>
     </span>
 </button>
 

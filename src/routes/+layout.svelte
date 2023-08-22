@@ -64,7 +64,7 @@
     </button>
     <div class="flex w-1/2 justify-start items-center">
         <a href="/" class="h-full" aria-current={$page.url.pathname === "/"} aria-label="home">
-            <img src="/logo.png" alt="changeling logo" class="h-full"/>
+            <img src="/navIcon.png" alt="changeling logo" class="h-full"/>
         </a>
     </div>
     <div class="flex w-1/2 justify-end">
