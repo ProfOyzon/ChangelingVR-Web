@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-    <title>@{data.username} Links</title>
+    <title>ChangelingVR | {data.username}</title>
     <meta name="description" content={data.bio} />
 </svelte:head>
 

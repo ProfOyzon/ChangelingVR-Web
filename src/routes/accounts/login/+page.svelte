@@ -20,6 +20,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>ChangelingVR | Login</title>
+</svelte:head>
+
 <div
     class="flex justify-center items-center min-h-[calc(100vh-4.25rem-2.5rem)]"
 >

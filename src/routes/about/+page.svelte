@@ -4,4 +4,8 @@
     export let data: PageData;
 </script>
 
+<svelte:head>
+    <title>ChangelingVR | About</title>
+</svelte:head>
+
 <h1>About</h1>

@@ -9,6 +9,8 @@
     
     export let data: PageData;
 
+    document.title = "ChangelingVR | Team";
+
     // Pagination Logic ----------------------
     let currentPage = 1;
     const usersPerPage = 16;
