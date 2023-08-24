@@ -42,11 +42,13 @@
     <section class="flex justify-center items-center bg-[url(/paper.png)] bg-no-repeat bg-cover bg-center min-h-[32.25rem] px-4 py-16 md:p-16">
         <div class="w-full flex flex-col max-w-[1000px]">
             {#if ready}
-                <p in:fly={{delay: 250, duration: 1000, x: -1000, opacity: 0, easing: quintOut}} class="text-black text-2xl font-mono">Changeling is a virtual reality Narrative Mystery game where sinister magics meet old-school detective work. Observe and enter the minds of your client's family in order to uncover the truth behind their child's sudden unresponsiveness.</p>
+                <div in:fly={{delay: 250, duration: 1000, x: -1000, opacity: 0, easing: quintOut}} >
+                    <p class="text-black text-2xl font-mono">Changeling is a virtual reality Narrative Mystery game where sinister magics meet old-school detective work. Observe and enter the minds of your client's family in order to uncover the truth behind their child's sudden unresponsiveness.</p>
+                    <div class="flex justify-center">
+                        <a class="btn variant-filled-secondary w-[15rem] mt-10 cursor-pointer" href="https://changelingvrteam.itch.io/changelingvr">Play Now</a>
+                    </div>
+                </div>
             {/if}
-            <div class="flex justify-center">
-                <a class="btn variant-filled-secondary w-[15rem] mt-10 cursor-pointer" href="https://changelingvrteam.itch.io/changelingvr">Play Now</a>
-            </div>
         </div>
     </section>
 
