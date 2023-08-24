@@ -16,7 +16,7 @@
     <title>ChangelingVR | Home</title>
 </svelte:head>
 
-<header class="relative min-h-[31.25rem] md:p-[3.75rem]">
+<header class="relative md:p-[3.75rem]">
     <div id="background-wrapper" class="hidden md:block absolute top-0 left-0 bottom-0 w-full bg-black">
         <div class="w-full h-full bg-black relative z-0">
             <video preload="auto" autoplay loop muted class="relative w-full h-full object-cover object-top">
@@ -38,7 +38,7 @@
     </div>
 </header>
 <main>
-    <div class="flex justify-center items-center bg-[url(/paper.png)] bg-no-repeat bg-cover min-h-[32.25rem]">
+    <div class="flex justify-center items-center bg-[url(/paper.png)] bg-no-repeat bg-cover min-h-[32.25rem] p-4">
         <div class="w-full flex flex-col max-w-[1000px]">
             <TypeWriter text={paragraph}/>
         </div>

@@ -2,10 +2,10 @@
     import { onDestroy, onMount } from "svelte";
 
     export let text = "";
-    export let interval = 25;
+    export let interval = 15;
     let typedChars = "";
     let index = 0;
-    let typewriter;
+    let typewriter: any;
     let isTyping = true;
 
     const typeChar = () => {
@@ -29,6 +29,12 @@
     onDestroy(() => stopTyping)
 </script>
 
-<p class="text-black font-serif text-2xl">
+<p class="text-black text-2xl font-bold">
     {typedChars}
 </p>
+
+<style>
+    p{
+        font-family: 'Courier New', Courier, monospace;
+    }
+</style>
