@@ -72,12 +72,14 @@
         </div>    
     </section>
 
+    <!-- Experiences Link -->
     <section class="flex flex-col items-center px-4 py-16 md:p-16 bg-surface-700">
         <h3 class="h2">Experiences</h3>
         <p class="text-xl max-w-[1000px] mt-4">Get to know Aurelia and the Summers-Manalo family through unique "experiences" by clicking below!</p>
         <a href="/experiences" class="btn variant-filled-primary cursor-pointer">Experiences</a>
     </section>
 
+    <!-- Team Link -->
     <section class="flex flex-col items-center px-4 py-16 md:p-16">
         <h3 class="h2">Meet the Team</h3>
         <p class="text-xl max-w-[1000px] mt-4">If you'd like to meet all the wonderful people who made this project possible, click below!</p>
