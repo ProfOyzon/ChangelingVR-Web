@@ -39,7 +39,7 @@
 
 <main>
     <!-- Blurb -->
-    <section class="flex justify-center items-center bg-[url(/paper.png)] bg-no-repeat bg-cover bg-center min-h-[32.25rem] p-4">
+    <section class="flex justify-center items-center bg-[url(/paper.png)] bg-no-repeat bg-cover bg-center min-h-[32.25rem] px-4 py-16 md:p-16">
         <div class="w-full flex flex-col max-w-[1000px]">
             {#if ready}
                 <p in:fly={{delay: 250, duration: 1000, x: -1000, opacity: 0, easing: quintOut}} class="text-black text-2xl font-mono">Changeling is a virtual reality Narrative Mystery game where sinister magics meet old-school detective work. Observe and enter the minds of your client's family in order to uncover the truth behind their child's sudden unresponsiveness.</p>
@@ -51,7 +51,7 @@
     </section>
 
     <!-- Compatible Platforms -->
-    <section class="flex flex-col items-center p-4 md:p-16 bg-surface-700">
+    <section class="flex flex-col items-center px-4 py-16 md:p-16 bg-surface-700">
         <h2 class="h2">Compatible Platforms</h2>
         <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
             <li><a href="https://www.oculus.com/quest/refurbished/" class="btn variant-outline-tertiary w-full">Oculus Quest</a></li>
@@ -63,7 +63,7 @@
     </section>
 
     <!-- About Changeling -->
-    <section class="flex flex-col items-center p-4 md:p-16">
+    <section class="flex flex-col items-center px-4 py-16 md:p-16">
         <h2 class="h2">About Changeling</h2>
         <p class="text-xl max-w-[1000px] mt-4">The passionate detective Aurelia Walker an adept in magical beings and mischief has just been called by Angela Summers. The Summers-Manalo family's infant, Tobi, has suddenly become unresponsive, and they're desperate for help after all else has failed. Using her powers of dreamwalking, Aurelia must uncover the truth behind Tobi's concerning state.</p>
         <!-- Trailer -->
@@ -72,14 +72,14 @@
         </div>    
     </section>
 
-    <section class="flex flex-col items-center p-4 md:p-16 bg-surface-700">
-        <h3 class="h3">Experiences</h3>
+    <section class="flex flex-col items-center px-4 py-16 md:p-16 bg-surface-700">
+        <h3 class="h2">Experiences</h3>
         <p class="text-xl max-w-[1000px] mt-4">Get to know Aurelia and the Summers-Manalo family through unique "experiences" by clicking below!</p>
         <a href="/experiences" class="btn variant-filled-primary cursor-pointer">Experiences</a>
     </section>
 
-    <section class="flex flex-col items-center p-4 md:p-16">
-        <h3 class="h3">Meet the Team</h3>
+    <section class="flex flex-col items-center px-4 py-16 md:p-16">
+        <h3 class="h2">Meet the Team</h3>
         <p class="text-xl max-w-[1000px] mt-4">If you'd like to meet all the wonderful people who made this project possible, click below!</p>
         <a href="/team" class="btn variant-filled-primary cursor-pointer">The Team</a>
     </section>
