@@ -12,3 +12,12 @@
         <li><a href="https://changelingvrteam.itch.io/changelingvr" class="btn variant-filled-primary">Play Now</a></li>
     </ul>
 </nav>
+
+<style>
+    [aria-current="true"]{
+        text-decoration: underline;
+    }
+    [aria-current="false"]{
+        color: lightgray;
+    }
+</style>
