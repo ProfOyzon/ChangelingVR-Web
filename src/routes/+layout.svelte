@@ -63,7 +63,10 @@
         </svg>
     </button>
     <div class="flex w-1/2 justify-start items-center">
-        <a href="/" class="h-full" aria-current={$page.url.pathname === "/"} aria-label="home">
+        <!-- Uncomment when fully switching to new web page -->
+        <!-- <a href="/" class="h-full" aria-current={$page.url.pathname === "/"} aria-label="home"> -->
+        <a href="https://www.changelingvr.com/" class="h-full" aria-current={$page.url.pathname === "https://www.changelingvr.com/"} aria-label="home">
+
             <img src="/navIcon.png" alt="changeling logo" class="h-full"/>
         </a>
     </div>
