@@ -61,6 +61,7 @@
         {#each paginatedUsers as user}
             <a href="/{user.username}" class="card shadow-xl rounded-xl">
                 <div class="card-body p-4">
+                    <!-- <img class="" src={user.photoURL ?? "/user.png"}> -->
                     <h2 class="card-title">{user.username}</h2>
                     <div class="mb-4">
                         {#each user.tags as tag}
