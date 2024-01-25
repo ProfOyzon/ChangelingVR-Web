@@ -3,15 +3,14 @@ import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } from "$env/static/private";
 
 let mysqlconn = null;
 
-export function mysqlconnFn() {
+export const mysqlconnFn = () => {
     if (!mysqlconn) {
         mysqlconn = mysql.createConnection({ 
-            host: DB_HOST,
-            user: DB_USER,
-            password: DB_PASSWORD,
-            database: DB_NAME
+            host: "mysql.changelingvr.com",
+            user: "changelingadmin",
+            password: "XanaAdH0cStud!0",
+            database: "changelingmembers"
         });
-        console.log(mysqlconn);
     }
 
     return mysqlconn;
