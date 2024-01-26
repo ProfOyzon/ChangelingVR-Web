@@ -17,8 +17,8 @@ export const load = async ( { params }) => {
         };
     } 
     catch (error) {
-    console.error("Got an error!!!");
-    console.log(error);
-    return error;
+        console.error("Got an error!!!");
+        console.log(error);
+        return error;
     }
 }
