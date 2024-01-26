@@ -2,7 +2,6 @@ import { mysqlconnFn } from "$lib/db/mysql";
 
 export const load = async ( { params }) => {
     const { id } = params;
-    console.log(id);
     let mysqlconn = await mysqlconnFn();
   
     try {
