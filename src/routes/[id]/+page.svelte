@@ -2,6 +2,10 @@
     export let data;
 </script>
     
+<svelte:head>
+    <title>{data.results[0].username} | Changeling</title>
+</svelte:head>
+
 {#each data.results as member}
     <div>
         <ul>
