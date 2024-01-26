@@ -4,6 +4,7 @@ export const load = async ( { params }) => {
     const { id } = params;
     let mysqlconn = await mysqlconnFn();
   
+    // Pull data for a specific user
     try {
         let results = await mysqlconn
         .query(`SELECT * FROM users WHERE id = ${id}`)

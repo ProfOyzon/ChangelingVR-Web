@@ -3,6 +3,7 @@ import { DB_HOST, DB_USER, DB_PASSWORD, DB_NAME } from "$env/static/private";
 
 let mysqlconn = null;
 
+// Create a connect with database
 export const mysqlconnFn = () => {
     if (!mysqlconn) {
         mysqlconn = mysql.createConnection({ 
