@@ -11,7 +11,7 @@ export const load = async () => {
         });
         
         return {
-            data:results
+            results
         };
     } 
     catch (error) {
