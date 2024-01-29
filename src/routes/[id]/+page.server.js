@@ -31,6 +31,7 @@ export const actions = {
         const data = await request.formData();
         const name = data.get("name");
         const email = data.get("email");
+        const bio = data.get("bio")
         const term = data.get("term");
         const team = data.get("team");
         const role = data.get("role");
@@ -43,8 +44,8 @@ export const actions = {
         // Update user's data in database
         try {
             const [result, fields] = await mysqlconn
-            .query(`UPDATE users SET username = "${name}", link_email = "${email}", terms = "${term}", teams = "${team}", roles = "${role}", 
-            link_website = "${portfolio}", link_github = "${github}", link_linkedin = "${linkedin}"
+            .query(`UPDATE users SET username = "${name}", link_email = "${email}", bio = "${bio}", terms = "${term}", teams = "${team}", 
+            roles = "${role}", link_website = "${portfolio}", link_github = "${github}", link_linkedin = "${linkedin}"
             WHERE id = ${id}`);
         }
         catch (error) {

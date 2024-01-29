@@ -14,6 +14,8 @@
     <input type="text" id="name" name="name" value={data.results[0].username} placeholder="Name">
     <label for="email">Email</label>
     <input type="text" id="email" name="email" value={data.results[0].link_email} placeholder="Email">
+    <label for="bio">About Me</label>
+    <textarea id="bio" name="bio" cols="85" rows="10" value={data.results[0].bio} placeholder="About Me"></textarea>
     <label for="term">Term</label>
     <input type="text" id="term" name="term" value={data.results[0].terms} placeholder="Term">
     <label for="team">Team</label>
