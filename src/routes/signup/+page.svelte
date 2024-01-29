@@ -2,7 +2,7 @@
     export let form;
 </script>
 
-<form method="POST" action="">
+<form method="POST">
     <p>{ form?.message || "" }</p>
     
     <label for="email">Email</label>

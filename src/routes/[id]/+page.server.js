@@ -1,7 +1,9 @@
 import { mysqlconnFn } from "$lib/db/mysql";
 
+let id = "";
+
 export const load = async ( { params }) => {
-    const { id } = params;
+    id = params.id;
     let mysqlconn = await mysqlconnFn();
   
     // Pull data for a specific user
@@ -20,5 +22,37 @@ export const load = async ( { params }) => {
         console.error("Got an error!!!");
         console.log(error);
         return error;
+    }
+}
+
+export const actions = {
+    default: async ({ request }) => {
+        // Get values from input fields
+        const data = await request.formData();
+        const name = data.get("name");
+        const email = data.get("email");
+        const term = data.get("term");
+        const team = data.get("team");
+        const role = data.get("role");
+        const portfolio = data.get("portfolio");
+        const github = data.get("github");
+        const linkedin = data.get("linkedin");
+        
+        let mysqlconn = await mysqlconnFn();
+
+        // Update user's data in database
+        try {
+            const [result, fields] = await mysqlconn
+            .query(`UPDATE users SET username = "${name}", link_email = "${email}", terms = "${term}", teams = "${team}", roles = "${role}", 
+            link_website = "${portfolio}", link_github = "${github}", link_linkedin = "${linkedin}"
+            WHERE id = ${id}`);
+        }
+        catch (error) {
+            console.error("Got an error!!!");
+            console.log(error);
+            return error;
+        }
+
+        return { message: "Saved Edits" };
     }
 }
