@@ -17,8 +17,9 @@ export const actions = {
 
         // Add a new user to database
         try {
-            const [result, fields] = await mysqlconn
-            .query(`INSERT INTO users (email, password) VALUE ("${email}", "${password}")`);
+            const sql = "INSERT INTO users (email, password) VALUE (?, ?)";
+            const values = [email, password];
+            const [result, fields] = await mysqlconn.query(sql, values);
         }
         catch (error) {
             console.error("Got an error!!!");
