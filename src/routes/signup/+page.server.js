@@ -1,4 +1,5 @@
 import { mysqlconnFn } from "$lib/db/mysql";
+import { genSecureHash } from "$lib/security.js";
 
 export const actions = {
     default: async ({ request }) => {
@@ -18,7 +19,7 @@ export const actions = {
         // Add a new user to database
         try {
             const [result, fields] = await mysqlconn
-            .query(`INSERT INTO users (email, password) VALUE ("${email}", "${password}")`);
+            .query(`INSERT INTO users (email, password) VALUE ("${email}", "${await genSecureHash(password)}")`);
         }
         catch (error) {
             console.error("Got an error!!!");
