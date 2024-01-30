@@ -6,6 +6,7 @@ export const actions = {
         const data = await request.formData();
         const email = data.get("email");
         const password = data.get("password");
+        const hashPass = await genSecureHash(password);
 
         // Verify that there was user input for both
         if (!email || !password) {
@@ -19,7 +20,7 @@ export const actions = {
         // Add a new user to database
         try {
             const sql = "INSERT INTO users (email, password) VALUE (?, ?)";
-            const values = [email, password];
+            const values = [email, hashPass];
             const [result, fields] = await mysqlconn.query(sql, values);
         }
         catch (error) {
