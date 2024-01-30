@@ -1,4 +1,5 @@
 import { mysqlconnFn } from "$lib/db/mysql";
+import { genSecureHash } from "$lib/security.js";
 
 export const actions = {
     default: async ({ request }) => {
