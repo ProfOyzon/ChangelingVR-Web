@@ -10,7 +10,7 @@
 <div class="wrapper">
     <form method="POST">
         <p>{ form?.message || "" }</p>
-        <div class="test">
+        <div class="container">
             <div class="grid">
                 <div>
                     <label for="name">Name</label>
@@ -87,7 +87,7 @@
         height: 98vh;
     }
 
-    .test {
+    .container {
         padding: 1rem;
         border-radius: .5rem;
         border: solid lightgray 1px;
@@ -104,6 +104,7 @@
     }
 
     .btn {
+        font-size: 1.25rem;
         padding: .25rem .5rem;
     }
 </style>
