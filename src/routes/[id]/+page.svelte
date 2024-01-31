@@ -14,29 +14,29 @@
             <div class="grid">
                 <div>
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" value={data.results[0].username} placeholder="Name">
+                    <input type="text" id="name" name="name" value={data.results[0].username} placeholder="Name" required>
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" value={data.results[0].link_email} placeholder="Email">
+                    <input type="text" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
                 </div>
             </div>
             <div class="spacer-top">
                 <label for="bio">About Me</label>
-                <textarea id="bio" name="bio" cols="85" rows="10" value={data.results[0].bio} placeholder="About Me"></textarea>
+                <textarea id="bio" name="bio" cols="85" rows="10" value={data.results[0].bio} placeholder="About Me" required></textarea>
             </div>
             <div class="grid spacer-top">
                 <div>
                     <label for="term">Term</label>
-                    <input type="text" id="term" name="term" value={data.results[0].terms} placeholder="Term">
+                    <input type="text" id="term" name="term" value={data.results[0].terms} placeholder="Term" required>
                 </div>
                 <div>
                     <label for="team">Team</label>
-                    <input type="text" id="team" name="team" value={data.results[0].teams} placeholder="Team">
+                    <input type="text" id="team" name="team" value={data.results[0].teams} placeholder="Team" required>
                 </div>
                 <div>
                     <label for="role">Roles</label>
-                    <input type="text" id="role" name="role" value={data.results[0].roles} placeholder="Roles">
+                    <input type="text" id="role" name="role" value={data.results[0].roles} placeholder="Roles" required>
                 </div>
             </div>
             <div class="grid spacer-top">
