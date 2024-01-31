@@ -6,15 +6,22 @@ export const actions = {
         const data = await request.formData();
         const email = data.get("email");
         const password = data.get("password");
-        const hashPass = await genSecureHash(password);
+        const confirm = data.get("confirm");
 
-        // Verify that there was user input for both
-        if (!email || !password) {
+        // Verify that there was user input
+        if (!email || !password || !confirm) {
             return {
                 message: "Missing email or password"
             };
         }
-        
+        // Verify password and confirm password match
+        else if (password !== confirm) {
+            return {
+                message: "Passwords do not match"
+            }
+        }
+
+        const hashPass = await genSecureHash(confirm);
         let mysqlconn = await mysqlconnFn();
 
         // Add a new user to database

@@ -14,6 +14,10 @@
                 <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
             <div class="spacer-top">
+                <label for="confirm">Confirm Password</label>
+                <input type="password" id="confirm" name="confirm" placeholder="Confirm Password" required>
+            </div>
+            <div class="spacer-top">
                 <button class="btn" type="submit">Sign Up</button>
             </div>
 
