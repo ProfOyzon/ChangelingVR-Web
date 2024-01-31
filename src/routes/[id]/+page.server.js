@@ -19,7 +19,6 @@ export const load = async ( { params }) => {
         };
     } 
     catch (error) {
-        console.error("Got an error!!!");
         console.log(error);
         return error;
     }
@@ -48,7 +47,6 @@ export const actions = {
             const [result, fields] = await mysqlconn.query(sql, values);
         }
         catch (error) {
-            console.error("Got an error!!!");
             console.log(error);
             return error;
         }

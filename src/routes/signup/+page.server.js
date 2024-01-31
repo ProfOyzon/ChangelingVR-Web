@@ -24,7 +24,6 @@ export const actions = {
             const [result, fields] = await mysqlconn.query(sql, values);
         }
         catch (error) {
-            console.error("Got an error!!!");
             console.log(error);
             return error;
         }
