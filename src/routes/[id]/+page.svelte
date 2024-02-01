@@ -18,7 +18,7 @@
                 </div>
                 <div>
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
+                    <input type="email" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
                 </div>
             </div>
             <div class="spacer-top">
@@ -42,15 +42,15 @@
             <div class="grid spacer-top">
                 <div>
                     <label for="portfolio">Portfolio</label>
-                    <input type="text" id="portfolio" name="portfolio" value={data.results[0].link_website} placeholder="Portfolio Link">
+                    <input type="url" id="portfolio" name="portfolio" value={data.results[0].link_website} placeholder="Portfolio Link">
                 </div>
                 <div>
                     <label for="github">Github</label>
-                    <input type="text" id="github" name="github" value={data.results[0].link_github} placeholder="Github Link">
+                    <input type="url" id="github" name="github" value={data.results[0].link_github} placeholder="Github Link">
                 </div>
                 <div>
                     <label for="linkedin">Linkedin</label>
-                    <input type="text" id="linkedin" name="linkedin" value={data.results[0].link_linkedin} placeholder="Linkedin Link">
+                    <input type="url" id="linkedin" name="linkedin" value={data.results[0].link_linkedin} placeholder="Linkedin Link">
                 </div>
             </div>
             
