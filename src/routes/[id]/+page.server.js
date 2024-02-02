@@ -1,6 +1,6 @@
 import { mysqlconnFn } from "$lib/db/mysql";
 
-let id = "";
+let id;
 
 export const load = async ( { params }) => {
     id = params.id;
