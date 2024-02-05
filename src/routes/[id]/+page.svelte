@@ -17,7 +17,7 @@
                     <input type="text" id="name" name="name" value={data.results[0].username} placeholder="Name" required>
                 </div>
                 <div>
-                    <label for="email">Email</label>
+                    <label for="email">Contact Email</label>
                     <input type="email" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
                 </div>
             </div>
