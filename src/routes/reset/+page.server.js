@@ -43,7 +43,7 @@ export const actions = {
             return error;
         }
         
-        // *** UPDATE urls of text and html with proper domain when going to production ***
+        // Content in email
         const text = `
         Someone has requested a password reset.
         

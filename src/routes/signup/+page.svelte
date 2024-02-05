@@ -21,7 +21,7 @@
                 <button class="btn" type="submit">Sign Up</button>
             </div>
 
-            <p>Already have an account? <a href="./">Log In</a></p>
+            <p>Already have an account? <a href="/">Log In</a></p>
         </div>
     </form>
 </div>

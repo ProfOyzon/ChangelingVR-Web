@@ -13,11 +13,12 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
+            <a href="/reset">Forgot password?</a>
             <div class="spacer-top">
                 <button class="btn" type="submit">Log In</button>
             </div>
 
-            <p>Don't have an account? <a href="./signup">Sign Up</a></p>
+            <p>Don't have an account? <a href="/signup">Sign Up</a></p>
         </div>
     </form>
 </div>
