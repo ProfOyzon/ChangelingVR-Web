@@ -31,16 +31,12 @@ export const actions = {
         const name = data.get("name");
         const email = data.get("email");
         const bio = data.get("bio");
-        const term = data.get("term");
-        const team = data.get("team");
-        const role = data.get("role");
+        const years = data.getAll("years");
+        const teams = data.getAll("teams");
+        const roles = data.getAll("roles");
         const portfolio = data.get("portfolio");
         const github = data.get("github");
         const linkedin = data.get("linkedin");
-
-        console.log(term);
-        console.log(team);
-        console.log(role);
         
         let mysqlconn = await mysqlconnFn();
 

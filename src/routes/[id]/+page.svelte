@@ -36,23 +36,23 @@
                     <p class="category-name">Years</p>
                     <div class="grid-3">
                         <div>
-                            <input type="checkbox" id="2020" bind:group={years} value="2020">
+                            <input type="checkbox" id="2020" bind:group={years} name="years" value="2020">
                             <label for="2020">2020</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="2021" bind:group={years} value="2021">
+                            <input type="checkbox" id="2021" bind:group={years} name="years" value="2021">
                             <label for="2021">2021</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="2022" bind:group={years} value="2022">
+                            <input type="checkbox" id="2022" bind:group={years} name="years" value="2022">
                             <label for="2022">2022</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="2023" bind:group={years} value="2023">
+                            <input type="checkbox" id="2023" bind:group={years} name="years" value="2023">
                             <label for="2023">2023</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="2024" bind:group={years} value="2024">
+                            <input type="checkbox" id="2024" bind:group={years} name="years" value="2024">
                             <label for="2024">2024</label>
                         </div>
                     </div>
@@ -62,35 +62,35 @@
                     <p class="category-name">Teams</p>
                     <div class="grid-3">
                         <div>
-                            <input type="checkbox" id="development" bind:group={teams} value="Development">
+                            <input type="checkbox" id="development" bind:group={teams}  name="teams" value="Development">
                             <label for="development">Development</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="art" bind:group={teams} value="Art">
+                            <input type="checkbox" id="art" bind:group={teams} name="teams" value="Art">
                             <label for="art">Art</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="tech-art" bind:group={teams} value="Tech Art">
+                            <input type="checkbox" id="tech-art" bind:group={teams} name="teams" value="Tech Art">
                             <label for="tech-art">Tech Art</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="audio" bind:group={teams} value="Audio">
+                            <input type="checkbox" id="audio" bind:group={teams} name="teams" value="Audio">
                             <label for="audio">Audio</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="web" bind:group={teams} value="Web">
+                            <input type="checkbox" id="web" bind:group={teams} name="teams" value="Web">
                             <label for="web">Web</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="narrative" bind:group={teams} value="Narrative">
+                            <input type="checkbox" id="narrative" bind:group={teams} name="teams" value="Narrative">
                             <label for="narrative">Narrative</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="voice" bind:group={teams} value="Voice">
+                            <input type="checkbox" id="voice" bind:group={teams} name="teams" value="Voice">
                             <label for="voice">Voice</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="production" bind:group={teams} value="Production">
+                            <input type="checkbox" id="production" bind:group={teams} name="teams" value="Production">
                             <label for="production">Production</label>
                         </div>
                     </div>
@@ -100,55 +100,55 @@
                     <p class="category-name">Roles</p>
                     <div class="grid-3">
                         <div>
-                            <input type="checkbox" id="programmer" bind:group={roles} value="Programmer">
+                            <input type="checkbox" id="programmer" bind:group={roles} name="roles" value="Programmer">
                             <label for="programmer">Programmer</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="level-designer" name="role"bind:group={roles} value="Level Designer">
+                            <input type="checkbox" id="level-designer" bind:group={roles} name="roles" value="Level Designer">
                             <label for="level-designer">Level Designer</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="ui-ux" name="role"bind:group={roles} value="UI/UX Designer">
+                            <input type="checkbox" id="ui-ux" bind:group={roles} name="roles" value="UI/UX Designer">
                             <label for="ui-ux">UI/UX Designer</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="writer" name="role"bind:group={roles} value="Writer">
+                            <input type="checkbox" id="writer" bind:group={roles} name="roles" value="Writer">
                             <label for="writer">Writer</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="voice-actor" name="role"bind:group={roles} value="Voice Actor">
+                            <input type="checkbox" id="voice-actor" bind:group={roles} name="roles" value="Voice Actor">
                             <label for="voice-actor">Voice Actor</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="2d-artist" name="role"bind:group={roles} value="2D Artist">
-                            <label for="2d artist">2D Artist</label>
+                            <input type="checkbox" id="2d-artist" bind:group={roles} name="roles" value="2D Artist">
+                            <label for="2d-artist">2D Artist</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="3d-modeler" name="role"bind:group={roles} value="3D Modeler">
+                            <input type="checkbox" id="3d-modeler" bind:group={roles} name="roles" value="3D Modeler">
                             <label for="3d-modeler">3D Modeler</label>
                         </div>
                         <div>
-                            <input type="checkbox" id="tech-artist" name="role"bind:group={roles} value="Tech Artist">
+                            <input type="checkbox" id="tech-artist" bind:group={roles} name="roles" value="Tech Artist">
                             <label for="tech-artist">Tech Artist</label>
                         </div>
                         <div>                       
-                            <input type="checkbox" id="concept-artist" name="role"bind:group={roles} value="Concept Artist">
+                            <input type="checkbox" id="concept-artist" bind:group={roles} name="roles" value="Concept Artist">
                             <label for="concept-artist">Concept Artist</label>
                         </div>
                         <div>        
-                            <input type="checkbox" id="sound-designer" name="role"bind:group={roles} value="Sound Designer">
+                            <input type="checkbox" id="sound-designer" bind:group={roles} name="roles" value="Sound Designer">
                             <label for="sound-designer">Sound Designer</label>
                         </div>
                         <div>                       
-                            <input type="checkbox" id="composer" name="role"bind:group={roles} value="Composer">
+                            <input type="checkbox" id="composer" bind:group={roles} name="roles" value="Composer">
                             <label for="composer">Composer</label>
                         </div>
                         <div> 
-                            <input type="checkbox" id="producer" name="role"bind:group={roles} value="Producer">
+                            <input type="checkbox" id="producer" bind:group={roles} name="roles" value="Producer">
                             <label for="producer">Producer</label>
                         </div>
                         <div> 
-                            <input type="checkbox" id="lead" name="role"bind:group={roles} value="Lead">
+                            <input type="checkbox" id="lead" bind:group={roles} name="roles" value="Lead">
                             <label for="lead">Lead</label>
                         </div>
                     </div>
