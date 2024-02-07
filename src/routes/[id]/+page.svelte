@@ -2,9 +2,9 @@
     export let data;
     export let form;
 
-    let years = [];
-    let teams = [];
-    let roles = [];
+    let years = data.results[0].terms.split(",");
+    let teams = data.results[0].teams.split(",");
+    let roles = data.results[0].roles.split(",");
 </script>
     
 <svelte:head>
