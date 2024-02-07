@@ -12,7 +12,7 @@
 </svelte:head>
 
 <div class="wrapper">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         <p>{ form?.message || "" }</p>
         <div class="container">
             <div class="grid-2">
@@ -23,6 +23,10 @@
                 <div>
                     <label class="label-block" for="email">Contact Email</label>
                     <input class="input-box" type="email" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
+                </div>
+                <div>
+                    <label class="label-block" for="pfp">Picture:</label>
+                    <input type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
                 </div>
             </div>
 
