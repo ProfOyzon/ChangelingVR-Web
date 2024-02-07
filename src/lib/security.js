@@ -1,4 +1,6 @@
-import {hash, compare} from "bcrypt";
+import { hash, compare } from "bcrypt";
+import jwt from 'jsonwebtoken';
+import { JWT_ACCESS_SECRET } from "$env/static/private";
 
 /** 
  * Generates a random character (0-9, A-Z, a-z)
@@ -55,3 +57,12 @@ const arrOfPassCheck = async(pass, hashedPass) => (Promise.all(genAllPepper().ma
  * @returns {Promise<Boolean>} Whether or not the password matches the stored password
  */
 export const checkPass = async(pass, hashedPass) => ((await arrOfPassCheck(pass, hashedPass)).includes(true));
+
+/**
+ * Generates a JWT Token based on id, email, and access secret
+ * 
+ * @param {number} id 
+ * @param {string} email 
+ * @returns Generated JWT Token
+ */
+export const jwtToken = (id, email) => (jwt.sign({id, email}, JWT_ACCESS_SECRET, { expiresIn: '1d' }));
