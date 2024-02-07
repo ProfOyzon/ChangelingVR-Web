@@ -5,7 +5,9 @@ let id;
 export const load = async ( { params }) => {
     id = params.id;
     let mysqlconn = await mysqlconnFn();
-  
+    
+    // TO DO: Fetch pfp https://www.changelingvr.com/image/team/6.jpg
+
     // Pull data for a specific user
     try {
         let results = await mysqlconn
@@ -25,11 +27,12 @@ export const load = async ( { params }) => {
 }
 
 export const actions = {
-    default: async ({ request }) => {
+    default: async ({ request, fetch }) => {
         // Get values from input fields
         const data = await request.formData();
         const name = data.get("name");
         const email = data.get("email");
+        const pfp = data.get("pfp");
         const bio = data.get("bio");
         const years = data.getAll("years").toString();
         const teams = data.getAll("teams").toString();
@@ -38,6 +41,21 @@ export const actions = {
         const github = data.get("github");
         const linkedin = data.get("linkedin");
 
+        // Convert pfp as a file to base64 string
+        const pfpAB = await pfp.arrayBuffer();
+        const pfp64 = Buffer.from(pfpAB).toString('base64');
+
+        /*const res = await fetch("https://www.changelingvr.com/pfp", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+        },
+            body: JSON.stringify({ 
+                id: id,
+                base64: pfp64
+            }),
+        });*/
+ 
         let mysqlconn = await mysqlconnFn();
 
         // Update user's data in database
