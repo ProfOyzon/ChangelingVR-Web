@@ -1,10 +1,11 @@
 <script>
     export let data;
     export let form;
-
     let years = data.results[0].terms.split(",");
     let teams = data.results[0].teams.split(",");
     let roles = data.results[0].roles.split(",");
+    let pfpSrc = `https://www.changelingvr.com/image/team/${data.results[0].id}.jpg`;
+    const defaultPfp = "/silhouetteAvatar2.png"
 </script>
     
 <svelte:head>
@@ -19,20 +20,20 @@
                 <div>
                     <label class="label-block" for="name">Name</label>
                     <input class="input-box" type="text" id="name" name="name" value={data.results[0].username} placeholder="Name" required>
-                </div>
-                <div>
-                    <label class="label-block" for="email">Contact Email</label>
+                    <label class="label-block spacer-top" for="email">Contact Email</label>
                     <input class="input-box" type="email" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
+                    <div class="spacer-top">
+                        <label class="label-block" for="bio">About Me</label>
+                        <textarea id="bio" name="bio" value={data.results[0].bio} placeholder="About Me" required></textarea>
+                    </div>
                 </div>
                 <div>
-                    <label class="label-block" for="pfp">Picture:</label>
+                    <label for="pfp">Picture:</label>
                     <input type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
+                    <div class="pfp-container spacer-top">
+                        <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
+                    </div>
                 </div>
-            </div>
-
-            <div class="spacer-top">
-                <label class="label-block" for="bio">About Me</label>
-                <textarea id="bio" name="bio" cols="85" rows="10" value={data.results[0].bio} placeholder="About Me" required></textarea>
             </div>
 
             <div class="grid-2 spacer-top">
@@ -183,6 +184,8 @@
     
 <style>
     textarea {
+        width: 100%;
+        height: 14vh;
         resize: none;
     }
 
@@ -237,5 +240,15 @@
     .btn {
         font-size: 1.25rem;
         padding: .25rem .5rem;
+    }
+
+    .pfp-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .pfp {
+        width: 256px;
+        height: 256px;
     }
 </style>

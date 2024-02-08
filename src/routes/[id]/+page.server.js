@@ -7,7 +7,9 @@ export const load = async ( { params }) => {
     let mysqlconn = await mysqlconnFn();
     
     // TO DO: Fetch pfp https://www.changelingvr.com/image/team/6.jpg
-
+    const res = await fetch(`https://www.changelingvr.com/image/team/${id}.jpg`);
+    const pfpStatus = res.status;
+    
     // Pull data for a specific user
     try {
         let results = await mysqlconn
@@ -17,7 +19,8 @@ export const load = async ( { params }) => {
         });
         
         return {
-            results
+            results,
+            pfpStatus
         };
     } 
     catch (error) {
