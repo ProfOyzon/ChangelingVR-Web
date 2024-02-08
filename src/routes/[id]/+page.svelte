@@ -5,11 +5,27 @@
     let teams = data.results[0].teams.split(",");
     let roles = data.results[0].roles.split(",");
     let pfpSrc = `https://www.changelingvr.com/image/team/${data.results[0].id}.jpg`;
-    const defaultPfp = "/silhouetteAvatar2.png"
-
+    const defaultPfp = "/silhouetteAvatar2.png";
+    
     const updatePfp = (e) => {
-        const pfp = document.querySelector(".pfp");
-        pfp.src = URL.createObjectURL(e.target.files[0]);
+        const requiredRes = 512;
+        const pfpInput = document.querySelector("#pfp");
+        const pfpImg = document.querySelector(".pfp");
+        let imgURL = URL.createObjectURL(e.target.files[0]);
+
+        const img = new Image();
+        img.src = imgURL;
+        img.onload = () => {
+            // Check image file dimensions are 512
+            if (img.width !== requiredRes || img.height !== requiredRes) {
+                pfpInput.value = "";
+                pfpImg.src = defaultPfp;
+            }
+            else {
+                pfpImg.src = imgURL;
+            }
+            URL.revokeObjectURL(imgURL);
+        };
     }
 </script>
     
@@ -33,8 +49,9 @@
                     </div>
                 </div>
                 <div>
-                    <label for="pfp">Picture:</label>
+                    <label class="pfp-label" for="pfp">Picture:</label>
                     <input on:change={updatePfp} type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
+                    <p class="pfp-info ">Provide an image that is 512x512</p>
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
@@ -255,5 +272,13 @@
     .pfp {
         width: 256px;
         height: 256px;
+    }
+
+    .pfp-info {
+        margin: .5rem 0;
+    }
+
+    .pfp-label {
+        font-size: 1.25rem;
     }
 </style>
