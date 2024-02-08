@@ -6,7 +6,7 @@ export const load = async ( { params }) => {
     id = params.id;
     let mysqlconn = await mysqlconnFn();
     
-    // TO DO: Fetch pfp https://www.changelingvr.com/image/team/6.jpg
+    // Fetch user's image and check status code for availability 
     const res = await fetch(`https://www.changelingvr.com/image/team/${id}.jpg`);
     const pfpStatus = res.status;
     

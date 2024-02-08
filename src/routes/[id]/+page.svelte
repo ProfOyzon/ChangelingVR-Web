@@ -6,6 +6,11 @@
     let roles = data.results[0].roles.split(",");
     let pfpSrc = `https://www.changelingvr.com/image/team/${data.results[0].id}.jpg`;
     const defaultPfp = "/silhouetteAvatar2.png"
+
+    const updatePfp = (e) => {
+        const pfp = document.querySelector(".pfp");
+        pfp.src = URL.createObjectURL(e.target.files[0]);
+    }
 </script>
     
 <svelte:head>
@@ -29,7 +34,7 @@
                 </div>
                 <div>
                     <label for="pfp">Picture:</label>
-                    <input type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
+                    <input on:change={updatePfp} type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
