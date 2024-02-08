@@ -1,4 +1,4 @@
-import { authenticateUser } from "$lib/server/auth"
+//import { authenticateUser } from "$lib/server/auth"
 import { redirect } from "@sveltejs/kit"
 
 export const handle = async ({ event, resolve }) => {
@@ -16,7 +16,7 @@ export const handle = async ({ event, resolve }) => {
 	// 	}
 	// }
 
-	// const response = await resolve(event) // Stage 2
+	const response = await resolve(event) // Stage 2
 
 	// // Stage 3
 
