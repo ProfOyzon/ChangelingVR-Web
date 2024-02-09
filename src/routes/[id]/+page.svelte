@@ -8,7 +8,9 @@
     const defaultPfp = "/silhouetteAvatar2.png";
     
     const updatePfp = (e) => {
-        const requiredRes = 512;
+        const modal = document.querySelector(".pfp-modal");
+        modal.showModal();
+        /*const requiredRes = 512;
         const pfpInput = document.querySelector("#pfp");
         const pfpImg = document.querySelector(".pfp");
         let imgURL = URL.createObjectURL(e.target.files[0]);
@@ -25,7 +27,12 @@
                 pfpImg.src = imgURL;
             }
             URL.revokeObjectURL(imgURL);
-        };
+        };*/
+    }
+
+    const closeModal = () => {
+        const modal = document.querySelector(".pfp-modal");
+        modal.close();
     }
 </script>
     
@@ -55,6 +62,9 @@
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
+                    <dialog class="pfp-modal">
+                        <button class="close-modal" on:click={closeModal}>Cancel</button>
+                    </dialog>
                 </div>
             </div>
 
