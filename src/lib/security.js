@@ -59,10 +59,27 @@ const arrOfPassCheck = async(pass, hashedPass) => (Promise.all(genAllPepper().ma
 export const checkPass = async(pass, hashedPass) => ((await arrOfPassCheck(pass, hashedPass)).includes(true));
 
 /**
+ * Creates a SessionUser based on id and email
+ * 
+ * @param {number} id 
+ * @param {string} email 
+ * @returns {SessionUser}
+ */
+export const sessionUser = (id,email) => ({id, email});
+
+/**
  * Generates a JWT Token based on id, email, and access secret
  * 
  * @param {number} id 
  * @param {string} email 
  * @returns Generated JWT Token
  */
-export const jwtToken = (id, email) => (jwt.sign({id, email}, JWT_ACCESS_SECRET, { expiresIn: '1d' }));
+export const jwtToken = (id, email) => (jwt.sign(sessionUser(id,email), JWT_ACCESS_SECRET, { expiresIn: '1d' }));
+
+/**
+ * If JWT is true
+ * 
+ * @param {string} token JWT
+ * @returns {boolean} If JWT is true
+ */
+export const verifyJWT = (token) => (jwt.verify(token, JWT_ACCESS_SECRET));

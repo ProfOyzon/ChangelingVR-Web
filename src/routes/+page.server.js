@@ -1,5 +1,5 @@
 import { mysqlconnFn } from "$lib/db/mysql";
-import { checkPass, jwtToken } from "$lib/security.js";
+import { checkPass, sessionUser, jwtToken } from "$lib/security.js";
 import { redirect } from "@sveltejs/kit"
 
 export const actions = {
@@ -39,7 +39,12 @@ export const actions = {
                 maxAge: 60 * 60 * 24 // 1 day
             });
 
-            redirect(303, `/${id}`);
+            const user = sessionUser(id, email);
+            event.locals.user = user;
+
+            console.log("from login: " + event.locals);
+
+            redirect(303, `/profile/${id}`);
         }
         else{
             return { message: "Incorrect Credentials" };
