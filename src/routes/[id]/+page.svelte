@@ -1,4 +1,7 @@
 <script>
+    import { enhance } from "$app/forms";
+    import 'cropperjs/dist/cropper.css';
+    import Cropper from "cropperjs";
     export let data;
     export let form;
     let years = data.results[0].terms.split(",");
@@ -6,10 +9,19 @@
     let roles = data.results[0].roles.split(",");
     let pfpSrc = `https://www.changelingvr.com/image/team/${data.results[0].id}.jpg`;
     const defaultPfp = "/silhouetteAvatar2.png";
+
+    let image;
+    let cropper;
     
     const updatePfp = (e) => {
-        const modal = document.querySelector(".pfp-modal");
-        modal.showModal();
+        //const modal = document.querySelector(".pfp-modal");
+        //modal.showModal();
+        image = document.querySelector(".img-cropping");
+        cropper = new Cropper(image, {
+            aspectRatio: 0,
+            viewMode: 0
+        });
+
         /*const requiredRes = 512;
         const pfpInput = document.querySelector("#pfp");
         const pfpImg = document.querySelector(".pfp");
@@ -30,6 +42,11 @@
         };*/
     }
 
+    const getCropped = () => {
+        const croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
+        console.log(croppedImage);
+    }
+
     const closeModal = () => {
         const modal = document.querySelector(".pfp-modal");
         modal.close();
@@ -41,7 +58,7 @@
 </svelte:head>
 
 <div class="wrapper">
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" use:enhance>
         <p>{ form?.message || "" }</p>
         <div class="container">
             <div class="grid-2">
@@ -65,6 +82,10 @@
                     <dialog class="pfp-modal">
                         <button class="close-modal" on:click={closeModal}>Cancel</button>
                     </dialog>
+                    <div>
+                        <img class="img-cropping" src={defaultPfp} alt="">
+                        <button type="button" class="crop-Image" on:click={getCropped}>Crop</button>
+                    </div>
                 </div>
             </div>
 
@@ -290,5 +311,10 @@
 
     .pfp-label {
         font-size: 1.25rem;
+    }
+
+    .img-cropping {
+        display: block;
+        max-width: 100%;
     }
 </style>
