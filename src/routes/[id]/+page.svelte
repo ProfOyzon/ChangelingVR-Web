@@ -16,10 +16,15 @@
     let cropper
     
     const updatePfp = (e) => {
+        // Open modal
         const modal = document.querySelector(".pfp-modal");
         modal.showModal();
+
+        // Create image cropper 
         image = document.querySelector(".img-cropping");
+        console.log(e.target.files[0]);
         let imgURL = URL.createObjectURL(e.target.files[0]);
+
         if (cropper) {
             cropper.destroy();
         }
@@ -35,12 +40,16 @@
     }
 
     const getCropped = () => {
+        // Crop
         const croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
+        
+        // Change profile image and store base64 string to be sumbitted with form
         const pfpImg = document.querySelector(".pfp");
         const pfpString = document.querySelector("#pfp-string");
         pfpImg.src = croppedImage;
         pfpString.value = croppedImage;
 
+        // Close modal
         const modal = document.querySelector(".pfp-modal");
         modal.close();
     }
@@ -74,6 +83,7 @@
                     <label class="pfp-label" for="pfp">Picture:</label>
                     <input on:change={updatePfp} type="file" id="pfp" accept=".jpg, .jpeg, .png">
                     <input type="hidden" id="pfp-string" name="pfp-string">
+                    <p>Image file must be less than 750KB</p>
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>

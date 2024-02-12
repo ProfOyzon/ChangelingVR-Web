@@ -1,3 +1,4 @@
+import sharp from "sharp";
 import { mysqlconnFn } from "$lib/db/mysql";
 
 let id;
@@ -44,10 +45,17 @@ export const actions = {
         const github = data.get("github");
         const linkedin = data.get("linkedin");
 
-        // Convert pfp as a file to base64 string
-        //const pfpAB = await pfp.arrayBuffer();
-        //const pfp64 = Buffer.from(pfpAB).toString('base64');
+        // Get base64 string of cropped image
+        let parts = pfp.split(';');
+        let mimType = parts[0].split(':')[1];
+        let imageData = parts[1].split(',')[1];
 
+        // Resize image to be 512x512
+        let bufferImg = Buffer.from(imageData, "base64");
+        let resizeBuffer = await sharp(bufferImg).resize(512, 512).toBuffer();
+        let resizedImg = resizeBuffer.toString("base64");
+        
+        // Send image to server
         const res = await fetch("https://www.changelingvr.com/pfp", {
             method: "PUT",
             headers: {
@@ -55,7 +63,7 @@ export const actions = {
         },
             body: JSON.stringify({ 
                 id: id,
-                base64: pfp
+                base64: resizedImg
             }),
         });
     
