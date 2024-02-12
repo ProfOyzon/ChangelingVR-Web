@@ -35,7 +35,7 @@ export const actions = {
         const data = await request.formData();
         const name = data.get("name");
         const email = data.get("email");
-        const pfp = data.get("pfp");
+        const pfp = data.get("pfp-string");
         const bio = data.get("bio");
         const years = data.getAll("years").toString();
         const teams = data.getAll("teams").toString();
@@ -45,20 +45,20 @@ export const actions = {
         const linkedin = data.get("linkedin");
 
         // Convert pfp as a file to base64 string
-        const pfpAB = await pfp.arrayBuffer();
-        const pfp64 = Buffer.from(pfpAB).toString('base64');
+        //const pfpAB = await pfp.arrayBuffer();
+        //const pfp64 = Buffer.from(pfpAB).toString('base64');
 
-        /*const res = await fetch("https://www.changelingvr.com/pfp", {
+        const res = await fetch("https://www.changelingvr.com/pfp", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
         },
             body: JSON.stringify({ 
                 id: id,
-                base64: pfp64
+                base64: pfp
             }),
-        });*/
- 
+        });
+    
         let mysqlconn = await mysqlconnFn();
 
         // Update user's data in database

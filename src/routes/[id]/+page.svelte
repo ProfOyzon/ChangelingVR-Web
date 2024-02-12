@@ -2,8 +2,10 @@
     import { enhance } from "$app/forms";
     import 'cropperjs/dist/cropper.css';
     import Cropper from "cropperjs";
+
     export let data;
     export let form;
+
     let years = data.results[0].terms.split(",");
     let teams = data.results[0].teams.split(",");
     let roles = data.results[0].roles.split(",");
@@ -11,40 +13,36 @@
     const defaultPfp = "/silhouetteAvatar2.png";
 
     let image;
-    let cropper;
+    let cropper
     
     const updatePfp = (e) => {
-        //const modal = document.querySelector(".pfp-modal");
-        //modal.showModal();
+        const modal = document.querySelector(".pfp-modal");
+        modal.showModal();
         image = document.querySelector(".img-cropping");
-        cropper = new Cropper(image, {
-            aspectRatio: 0,
-            viewMode: 0
-        });
-
-        /*const requiredRes = 512;
-        const pfpInput = document.querySelector("#pfp");
-        const pfpImg = document.querySelector(".pfp");
         let imgURL = URL.createObjectURL(e.target.files[0]);
+        if (cropper) {
+            cropper.destroy();
+        }
 
-        const img = new Image();
-        img.src = imgURL;
-        img.onload = () => {
-            // Check image file dimensions are 512
-            if (img.width !== requiredRes || img.height !== requiredRes) {
-                pfpInput.value = "";
-                pfpImg.src = defaultPfp;
-            }
-            else {
-                pfpImg.src = imgURL;
-            }
-            URL.revokeObjectURL(imgURL);
-        };*/
+        image.src = imgURL;
+        cropper = new Cropper(image, {
+        aspectRatio: 1 / 1,
+        viewMode: 3,
+        autoCropArea: 1,
+        cropBoxResizable: false
+        });
+        URL.revokeObjectURL(imgURL);
     }
 
     const getCropped = () => {
         const croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
-        console.log(croppedImage);
+        const pfpImg = document.querySelector(".pfp");
+        const pfpString = document.querySelector("#pfp-string");
+        pfpImg.src = croppedImage;
+        pfpString.value = croppedImage;
+
+        const modal = document.querySelector(".pfp-modal");
+        modal.close();
     }
 
     const closeModal = () => {
@@ -74,18 +72,18 @@
                 </div>
                 <div>
                     <label class="pfp-label" for="pfp">Picture:</label>
-                    <input on:change={updatePfp} type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
-                    <p class="pfp-info ">Provide an image that is 512x512</p>
+                    <input on:change={updatePfp} type="file" id="pfp" accept=".jpg, .jpeg, .png">
+                    <input type="hidden" id="pfp-string" name="pfp-string">
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
                     <dialog class="pfp-modal">
+                        <div class="cropper-container">
+                            <img class="img-cropping" src="" alt="">
+                        </div>
                         <button class="close-modal" on:click={closeModal}>Cancel</button>
+                        <button type="button" on:click={getCropped}>Crop</button>
                     </dialog>
-                    <div>
-                        <img class="img-cropping" src={defaultPfp} alt="">
-                        <button type="button" class="crop-Image" on:click={getCropped}>Crop</button>
-                    </div>
                 </div>
             </div>
 
@@ -305,10 +303,6 @@
         height: 256px;
     }
 
-    .pfp-info {
-        margin: .5rem 0;
-    }
-
     .pfp-label {
         font-size: 1.25rem;
     }
@@ -316,5 +310,10 @@
     .img-cropping {
         display: block;
         max-width: 100%;
+    }
+
+    .cropper-container {
+        width: 512px;
+        height: 512px;
     }
 </style>
