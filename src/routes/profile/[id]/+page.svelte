@@ -1,32 +1,74 @@
 <script>
+    import { enhance } from "$app/forms";
+    import 'cropperjs/dist/cropper.css';
+    import Cropper from "cropperjs";
+
     export let data;
     export let form;
+
     let years = data.results[0].terms.split(",");
     let teams = data.results[0].teams.split(",");
     let roles = data.results[0].roles.split(",");
     let pfpSrc = `https://www.changelingvr.com/image/team/${data.results[0].id}.jpg`;
     const defaultPfp = "/silhouetteAvatar2.png";
+
+    let image;
+    let cropper;
+    let imgWarning = "";
     
     const updatePfp = (e) => {
-        const requiredRes = 512;
-        const pfpInput = document.querySelector("#pfp");
-        const pfpImg = document.querySelector(".pfp");
+        // Check image file size is over size limit 
+        if (e.target.files[0].size > 818799) {
+            imgWarning = "The image you've selected is too large";
+            return;
+        }
+        else {
+            imgWarning = "";
+        }
+        
+        // Open modal
+        const modal = document.querySelector(".pfp-modal");
+        modal.showModal();
+
+        // Create image cropper 
+        image = document.querySelector(".img-cropping");
         let imgURL = URL.createObjectURL(e.target.files[0]);
 
-        const img = new Image();
-        img.src = imgURL;
-        img.onload = () => {
-            // Check image file dimensions are 512
-            if (img.width !== requiredRes || img.height !== requiredRes) {
-                pfpInput.value = "";
-                pfpImg.src = defaultPfp;
-            }
-            else {
-                pfpImg.src = imgURL;
-            }
-            URL.revokeObjectURL(imgURL);
-        };
+        if (cropper) {
+            cropper.destroy();
+        }
+
+        image.src = imgURL;
+        cropper = new Cropper(image, {
+        aspectRatio: 1 / 1,
+        viewMode: 3,
+        autoCropArea: 1,
+        cropBoxResizable: false
+        });
+        URL.revokeObjectURL(imgURL);
     }
+
+    const getCropped = () => {
+        // Crop
+        const croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
+        
+        // Change profile image and store base64 string to be sumbitted with form
+        const pfpImg = document.querySelector(".pfp");
+        const pfpString = document.querySelector("#pfp-string");
+        pfpImg.src = croppedImage;
+        pfpString.value = croppedImage;
+
+        // Close modal
+        const modal = document.querySelector(".pfp-modal");
+        modal.close();
+    }
+
+    const closeModal = () => {
+        const modal = document.querySelector(".pfp-modal");
+        const pfpInput = document.querySelector("#pfp");
+        pfpInput.value = "";
+        modal.close();
+    }    
 </script>
     
 <svelte:head>
@@ -50,11 +92,21 @@
                 </div>
                 <div>
                     <label class="pfp-label" for="pfp">Picture:</label>
-                    <input on:change={updatePfp} type="file" id="pfp" name="pfp" accept=".jpg, .jpeg, .png">
-                    <p class="pfp-info ">Provide an image that is 512x512</p>
+                    <input on:change={updatePfp} type="file" id="pfp" accept=".jpg, .jpeg, .png">
+                    <input type="hidden" id="pfp-string" name="pfp-string">
+                    <p class="image-note">Select an image file less than 750KB. <b>{imgWarning}</b></p>
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
+                    <dialog class="pfp-modal">
+                        <div class="cropper-container">
+                            <img class="img-cropping" src="" alt="">
+                        </div>
+                        <div class="modal-btn-container">
+                            <button class="close-modal btn spacer-top" type="button" on:click={closeModal}>Cancel</button>
+                            <button class="btn spacer-top" type="button" on:click={getCropped}>Crop</button>
+                        </div>
+                    </dialog>
                 </div>
             </div>
 
@@ -274,11 +326,30 @@
         height: 256px;
     }
 
-    .pfp-info {
-        margin: .5rem 0;
-    }
-
     .pfp-label {
         font-size: 1.25rem;
+    }
+
+    .image-note {
+        margin: .5rem 0 0;
+    }
+
+    .img-cropping {
+        display: block;
+        max-width: 100%;
+    }
+
+    .cropper-container {
+        width: 512px;
+        height: 512px;
+    }
+
+    .modal-btn-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    dialog::backdrop {
+        background-color: rgba(0, 0, 0, .85);
     }
 </style>

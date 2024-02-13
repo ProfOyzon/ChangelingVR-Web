@@ -1,3 +1,4 @@
+import sharp from "sharp";
 import { mysqlconnFn } from "$lib/db/mysql";
 
 let id;
@@ -35,7 +36,7 @@ export const actions = {
         const data = await request.formData();
         const name = data.get("name");
         const email = data.get("email");
-        const pfp = data.get("pfp");
+        const pfp = data.get("pfp-string");
         const bio = data.get("bio");
         const years = data.getAll("years").toString();
         const teams = data.getAll("teams").toString();
@@ -44,21 +45,31 @@ export const actions = {
         const github = data.get("github");
         const linkedin = data.get("linkedin");
 
-        // Convert pfp as a file to base64 string
-        const pfpAB = await pfp.arrayBuffer();
-        const pfp64 = Buffer.from(pfpAB).toString('base64');
+        let resizedImg;
+        if (pfp) {
+            // Get base64 string of cropped image
+            let parts = pfp.split(';');
+            let mimType = parts[0].split(':')[1];
+            let imageData = parts[1].split(',')[1];
 
-        /*const res = await fetch("https://www.changelingvr.com/pfp", {
+            // Resize image to be 512x512
+            let bufferImg = Buffer.from(imageData, "base64");
+            let resizeBuffer = await sharp(bufferImg).resize(512, 512).toBuffer();
+            resizedImg = resizeBuffer.toString("base64");
+        }
+        
+        // Send image to server
+        const res = await fetch("https://www.changelingvr.com/pfp", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
         },
             body: JSON.stringify({ 
                 id: id,
-                base64: pfp64
+                base64: resizedImg
             }),
-        });*/
- 
+        });
+    
         let mysqlconn = await mysqlconnFn();
 
         // Update user's data in database
