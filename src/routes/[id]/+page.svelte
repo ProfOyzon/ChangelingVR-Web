@@ -13,16 +13,25 @@
     const defaultPfp = "/silhouetteAvatar2.png";
 
     let image;
-    let cropper
+    let cropper;
+    let imgWarning = "";
     
     const updatePfp = (e) => {
+        // Check image file size is over size limit 
+        if (e.target.files[0].size > 818799) {
+            imgWarning = "The image you've selected is too large";
+            return;
+        }
+        else {
+            imgWarning = "";
+        }
+        
         // Open modal
         const modal = document.querySelector(".pfp-modal");
         modal.showModal();
 
         // Create image cropper 
         image = document.querySelector(".img-cropping");
-        console.log(e.target.files[0]);
         let imgURL = URL.createObjectURL(e.target.files[0]);
 
         if (cropper) {
@@ -56,6 +65,8 @@
 
     const closeModal = () => {
         const modal = document.querySelector(".pfp-modal");
+        const pfpInput = document.querySelector("#pfp");
+        pfpInput.value = "";
         modal.close();
     }    
 </script>
@@ -65,7 +76,7 @@
 </svelte:head>
 
 <div class="wrapper">
-    <form method="POST" enctype="multipart/form-data" use:enhance>
+    <form method="POST" enctype="multipart/form-data">
         <p>{ form?.message || "" }</p>
         <div class="container">
             <div class="grid-2">
@@ -83,7 +94,7 @@
                     <label class="pfp-label" for="pfp">Picture:</label>
                     <input on:change={updatePfp} type="file" id="pfp" accept=".jpg, .jpeg, .png">
                     <input type="hidden" id="pfp-string" name="pfp-string">
-                    <p>Image file must be less than 750KB</p>
+                    <p class="image-note">Select an image file less than 750KB. <b>{imgWarning}</b></p>
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
@@ -91,8 +102,10 @@
                         <div class="cropper-container">
                             <img class="img-cropping" src="" alt="">
                         </div>
-                        <button class="close-modal" on:click={closeModal}>Cancel</button>
-                        <button type="button" on:click={getCropped}>Crop</button>
+                        <div class="modal-btn-container">
+                            <button class="close-modal btn spacer-top" type="button" on:click={closeModal}>Cancel</button>
+                            <button class="btn spacer-top" type="button" on:click={getCropped}>Crop</button>
+                        </div>
                     </dialog>
                 </div>
             </div>
@@ -317,6 +330,10 @@
         font-size: 1.25rem;
     }
 
+    .image-note {
+        margin: .5rem 0 0;
+    }
+
     .img-cropping {
         display: block;
         max-width: 100%;
@@ -325,5 +342,14 @@
     .cropper-container {
         width: 512px;
         height: 512px;
+    }
+
+    .modal-btn-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    dialog::backdrop {
+        background-color: rgba(0, 0, 0, .85);
     }
 </style>
