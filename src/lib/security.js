@@ -61,20 +61,21 @@ export const checkPass = async(pass, hashedPass) => ((await arrOfPassCheck(pass,
 /**
  * Creates a SessionUser based on id and email
  * 
- * @param {number} id 
- * @param {string} email 
- * @returns {SessionUser}
+ * @param {number} id ID of user in database
+ * @param {string} email Email of user in database
+ * @returns {SessionUser} Object holding ID and Email
  */
 export const sessionUser = (id,email) => ({id, email});
 
 /**
  * Generates a JWT Token based on id, email, and access secret
  * 
- * @param {number} id 
- * @param {string} email 
+ * @param {number} id Id of user in database
+ * @param {string} email Email of user in Database
+ * @param {string} expirationTime Time until expired, default is '1d'
  * @returns Generated JWT Token
  */
-export const jwtToken = (id, email) => (jwt.sign(sessionUser(id,email), JWT_ACCESS_SECRET, { expiresIn: '1d' }));
+export const jwtToken = (id, email, expirationTime = '1d') => (jwt.sign(sessionUser(id,email), JWT_ACCESS_SECRET, { expiresIn: expirationTime }));
 
 /**
  * If JWT is true
