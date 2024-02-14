@@ -3,19 +3,6 @@ import { redirect } from "@sveltejs/kit"
 import { verifyJWT } from "$lib/security.js";
 
 export const handle = async ({ event, resolve }) => {
-	// // Stage 1
-	// event.locals.user = authenticateUser(event)
-
-	// if (event.url.pathname.startsWith("/protected")) {
-	// 	if (!event.locals.user) {
-	// 		throw redirect(303, "/")
-	// 	}
-	// 	if (event.url.pathname.startsWith("/protected/admin")) {
-	// 		if (event.locals.user.role !== "ADMIN") {
-	// 			throw redirect(303, "/protected")
-	// 		}
-	// 	}
-	// }
 
 	if (event.url.pathname.startsWith("/profile")) {
 		const { headers } = event.request;
@@ -46,9 +33,7 @@ export const handle = async ({ event, resolve }) => {
 		}
 	}
 
-	const response = await resolve(event); // Stage 2
-
-	// // Stage 3
+	const response = await resolve(event);
 
 	return response;
 }
