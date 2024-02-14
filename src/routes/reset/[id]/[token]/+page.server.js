@@ -40,7 +40,7 @@ export const actions = {
             };
         }
         // Verify password and confirm password match
-        else if (password !== confirm) {
+        if (password !== confirm) {
             return {
                 message: "Passwords do not match"
             }

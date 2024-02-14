@@ -1,5 +1,4 @@
 <script>
-    import { enhance } from "$app/forms";
     import 'cropperjs/dist/cropper.css';
     import Cropper from "cropperjs";
 

@@ -7,8 +7,8 @@
         <p>{ form?.message || "" }</p>
         
         <div class="container">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Email" required>
+            <label for="email">RIT Email</label>
+            <input type="email" id="email" name="email" placeholder="RIT Email" required>
             <div class="spacer-top">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Password" required>

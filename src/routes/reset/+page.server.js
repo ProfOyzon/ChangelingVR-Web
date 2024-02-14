@@ -18,6 +18,21 @@ export const actions = {
         let mysqlconn = await mysqlconnFn();
         const token = generateToken(16);
         const hashToken = await genSecureHash(token);
+        let id;
+
+        // get id of a specific user by email
+        const sql = "SELECT id, email FROM users WHERE email = ?"
+        const values = [email]
+        const [result, fields] = await mysqlconn.query(sql, values);
+
+        // Return early if no account in database with email is found 
+        if (!result[0]) {
+            return {
+                message: `If a matching account was found an email was sent to ${email} to allow you to reset your password`
+            };
+        }
+
+        id = result[0].id;
 
         // Update user's reset_token in database
         try {
@@ -25,19 +40,6 @@ export const actions = {
             const values = [hashToken, email];
             const [result, fields] = await mysqlconn.query(sql, values);
         }
-        catch (error) {
-            console.log(error);
-            return error;
-        }
-
-        let id;
-        // get id of a specific user by email
-        try {
-            const sql = "SELECT id, email FROM users WHERE email = ?"
-            const values = [email]
-            const [result, fields] = await mysqlconn.query(sql, values);
-            id = result[0].id;
-        } 
         catch (error) {
             console.log(error);
             return error;
@@ -91,7 +93,7 @@ export const actions = {
         }
         
         await sendEmail(message);
-        return { success: "Email Sent" };
+        return { message: `If a matching account was found an email was sent to ${email} to allow you to reset your password` };
     }
 }
 

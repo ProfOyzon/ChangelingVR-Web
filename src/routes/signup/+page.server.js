@@ -7,6 +7,7 @@ export const actions = {
         const email = data.get("email");
         const password = data.get("password");
         const confirm = data.get("confirm");
+        const validEmails = ["@rit.edu", "@g.rit.edu"]
 
         // Verify that there was user input
         if (!email || !password || !confirm) {
@@ -14,8 +15,17 @@ export const actions = {
                 message: "Missing email or password"
             };
         }
+        if (email) {
+            // Verify an RIT email is being used
+            const valid = validEmails.some(endingStr => email.endsWith(endingStr));
+            if (!valid) {
+                return {
+                    message: "Use an RIT email"
+                };
+            }
+        }
         // Verify password and confirm password match
-        else if (password !== confirm) {
+        if (password !== confirm) {
             return {
                 message: "Passwords do not match"
             }

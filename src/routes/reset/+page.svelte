@@ -1,9 +1,10 @@
 <script>
+    import { enhance } from "$app/forms";
     export let form;
 </script>
 
 <div class="wrapper">
-    <form method="POST">
+    <form method="POST" use:enhance>
         <p>{ form?.message || "" }</p>
         
         <div class="container">
