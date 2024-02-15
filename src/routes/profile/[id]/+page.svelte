@@ -13,17 +13,10 @@
 
     let image;
     let cropper;
-    let imgWarning = "";
+    let imgType;
     
     const updatePfp = (e) => {
-        // Check image file size is over size limit 
-        if (e.target.files[0].size > 818799) {
-            imgWarning = "The image you've selected is too large";
-            return;
-        }
-        else {
-            imgWarning = "";
-        }
+        imgType = e.target.files[0].type;
         
         // Open modal
         const modal = document.querySelector(".pfp-modal");
@@ -44,18 +37,30 @@
         autoCropArea: 1,
         cropBoxResizable: false
         });
-        URL.revokeObjectURL(imgURL);
     }
 
     const getCropped = () => {
-        // Crop
-        const croppedImage = cropper.getCroppedCanvas().toDataURL("image/png");
-        
-        // Change profile image and store base64 string to be sumbitted with form
-        const pfpImg = document.querySelector(".pfp");
-        const pfpString = document.querySelector("#pfp-string");
-        pfpImg.src = croppedImage;
-        pfpString.value = croppedImage;
+        // Get cropped image as base64
+        const croppedImage = cropper.getCroppedCanvas().toDataURL(imgType);
+
+        let img = document.createElement("img");
+        img.src = croppedImage;
+        img.onload = () => {
+            // Resize image to 512x512
+            const wantedDim = 512;
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = wantedDim;
+            canvas.height = wantedDim;
+            ctx.drawImage(img, 0, 0, wantedDim, wantedDim);
+            const resizedImg = canvas.toDataURL(imgType);
+
+            // Change profile image and store base64 string to be sumbitted with form
+            const pfpImg = document.querySelector(".pfp");
+            const pfpString = document.querySelector("#pfp-string");
+            pfpImg.src = resizedImg;
+            pfpString.value = resizedImg;
+        }
 
         // Close modal
         const modal = document.querySelector(".pfp-modal");
@@ -93,7 +98,6 @@
                     <label class="pfp-label" for="pfp">Picture:</label>
                     <input on:change={updatePfp} type="file" id="pfp" accept=".jpg, .jpeg, .png">
                     <input type="hidden" id="pfp-string" name="pfp-string">
-                    <p class="image-note">Select an image file less than 750KB. <b>{imgWarning}</b></p>
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
@@ -327,10 +331,6 @@
 
     .pfp-label {
         font-size: 1.25rem;
-    }
-
-    .image-note {
-        margin: .5rem 0 0;
     }
 
     .img-cropping {
