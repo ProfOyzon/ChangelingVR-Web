@@ -60,6 +60,8 @@
             const pfpString = document.querySelector("#pfp-string");
             pfpImg.src = resizedImg;
             pfpString.value = resizedImg;
+
+            console.log("Image done");
         }
 
         // Close modal
