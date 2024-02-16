@@ -66,18 +66,18 @@ export const actions = {
             }),
         });
     
-        let mysqlconn = await mysqlconnFn();
+        // let mysqlconn = await mysqlconnFn();
 
-        // Update user's data in database
-        try {
-            const sql = "UPDATE users SET username = ?, link_email = ?, bio = ?, terms = ?, teams = ?, roles = ?, link_website = ?, link_github = ?, link_linkedin = ? WHERE id = ?";
-            const values = [name, email, bio, years, teams, roles, portfolio, github, linkedin, id];
-            const [result, fields] = await mysqlconn.query(sql, values);
-        }
-        catch (error) {
-            console.log(error);
-            return error;
-        }
+        // // Update user's data in database
+        // try {
+        //     const sql = "UPDATE users SET username = ?, link_email = ?, bio = ?, terms = ?, teams = ?, roles = ?, link_website = ?, link_github = ?, link_linkedin = ? WHERE id = ?";
+        //     const values = [name, email, bio, years, teams, roles, portfolio, github, linkedin, id];
+        //     const [result, fields] = await mysqlconn.query(sql, values);
+        // }
+        // catch (error) {
+        //     console.log(error);
+        //     return error;
+        // }
 
         return { message: "Saved Edits" };
     }
