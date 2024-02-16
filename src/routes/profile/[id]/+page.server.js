@@ -47,12 +47,11 @@ export const actions = {
         let pfpBase64;
         if (pfp) {
             // Get base64 string of cropped image without metadata
-            // let parts = pfp.split(';');
-            // let mimType = parts[0].split(':')[1];
-            // let imageData = parts[1].split(',')[1];
+            let parts = pfp.split(';');
+            let mimType = parts[0].split(':')[1];
+            let imageData = parts[1].split(',')[1];
         
-            // pfpBase64 = imageData;
-            pfpBase64 = pfp.split(';base64,').pop();
+            pfpBase64 = imageData;
         }
         
         // Send image to server

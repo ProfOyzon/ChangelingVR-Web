@@ -47,7 +47,7 @@
         img.src = croppedImage;
         img.onload = () => {
             // Resize image to 512x512
-            const wantedDim = 256;
+            const wantedDim = 512;
             const canvas = document.createElement("canvas");
             const ctx = canvas.getContext("2d");
             canvas.width = wantedDim;
