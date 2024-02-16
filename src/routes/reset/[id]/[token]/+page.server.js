@@ -9,12 +9,11 @@ export const load = async ( { params }) => {
     const token = params.token;
 
     // Pull reset token for a specific user
-    let mysqlconn = await mysqlconnFn().getConnection();
+    let mysqlconn = await mysqlconnFn();
 
     const sql = "SELECT reset_token FROM users WHERE id = ?"
     const values = [id]
     const [result, fields] = await mysqlconn.query(sql, values);
-    mysqlconn.release();
 
     // Redirect if there is no result from sql query
     if (!result[0]) {
@@ -48,7 +47,7 @@ export const actions = {
         }
 
         const hashPass = await genSecureHash(confirm);
-        let mysqlconn = await mysqlconnFn().getConnection();
+        let mysqlconn = await mysqlconnFn();
 
         // Update user's password and reset token in database
         try {
@@ -60,7 +59,7 @@ export const actions = {
             console.log(error);
             return error;
         }
-        mysqlconn.release();
+
         return { message: "New Password Saved" };
     }
 }
