@@ -32,7 +32,7 @@ export const actions = {
         }
 
         const hashPass = await genSecureHash(confirm);
-        let mysqlconn = await mysqlconnFn();
+        let mysqlconn = await mysqlconnFn().getConnection();
 
         // Add a new user to database
         try {
@@ -44,7 +44,7 @@ export const actions = {
             console.log(error);
             return error;
         }
-
+        mysqlconn.release();
         return { message: "Signed Up" };
     }
 }

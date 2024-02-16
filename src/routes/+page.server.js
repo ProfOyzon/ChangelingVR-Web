@@ -16,7 +16,7 @@ export const actions = {
             };
         }
 
-        let mysqlconn = await mysqlconnFn();
+        let mysqlconn = await mysqlconnFn().getConnection();
         let password ,id;
         // Add a new user to database
         try {
@@ -28,7 +28,7 @@ export const actions = {
             console.log(error);
             return error;
         }
-
+        mysqlconn.release();
         
         if ((await checkPass(givenPassword, password))){
             event.cookies.set('AuthorizationToken', `Bearer ${jwtToken(id, email)}`, {

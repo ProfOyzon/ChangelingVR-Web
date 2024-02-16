@@ -15,7 +15,7 @@ export const actions = {
             };
         }
 
-        let mysqlconn = await mysqlconnFn();
+        let mysqlconn = await mysqlconnFn().getConnection();
         const token = generateToken(16);
         const hashToken = await genSecureHash(token);
         let id;
@@ -44,7 +44,7 @@ export const actions = {
             console.log(error);
             return error;
         }
-        
+        mysqlconn.release();
         // Content in email
         const text = `
         Someone has requested a password reset.

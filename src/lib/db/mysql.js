@@ -6,7 +6,7 @@ let mysqlconn = null;
 // Create a connect with database
 export const mysqlconnFn = () => {
     if (!mysqlconn) {
-        mysqlconn = mysql.createConnection({ 
+        mysqlconn = mysql.createPool({ 
             host: DB_HOST,
             user: DB_USER,
             password: DB_PASS,

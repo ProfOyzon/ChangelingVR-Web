@@ -4,7 +4,7 @@ let id;
 
 export const load = async ( { params }) => {
     id = params.id;
-    let mysqlconn = await mysqlconnFn();
+    let mysqlconn = await mysqlconnFn().getConnection();
     
     // Fetch user's image and check status code for availability 
     const res = await fetch(`https://www.changelingvr.com/image/team/${id}.jpg`);
@@ -18,6 +18,7 @@ export const load = async ( { params }) => {
             return rows;
         });
         
+        mysqlconn.release();
         return {
             results,
             pfpStatus
@@ -66,7 +67,7 @@ export const actions = {
             }),
         });
     
-        let mysqlconn = await mysqlconnFn();
+        let mysqlconn = await mysqlconnFn().getConnection();
 
         // Update user's data in database
         try {
@@ -78,7 +79,7 @@ export const actions = {
             console.log(error);
             return error;
         }
-
+        mysqlconn.release();
         return { message: "Saved Edits" };
     }
 }
