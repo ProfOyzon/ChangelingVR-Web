@@ -61,7 +61,7 @@
             pfpImg.src = resizedImg;
             pfpString.value = resizedImg;
 
-            console.log("pfpString.value");
+            console.log(pfpString.value);
         }
 
         // Close modal
