@@ -1,6 +1,7 @@
 <script>
     import { goto } from "$app/navigation";
     export let form;
+    export let data;
 
     if (form?.message === "New Password Saved") {
         goto("/");
@@ -14,6 +15,7 @@
         <div class="container">
             <h1>Reset Your Password</h1>
             <p>Enter and confirm your new password.</p>
+            <input type="hidden" name="id" value={data.result[0].id}>
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <div class="spacer-top">

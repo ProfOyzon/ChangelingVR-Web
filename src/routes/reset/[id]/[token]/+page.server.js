@@ -2,16 +2,15 @@ import { redirect } from "@sveltejs/kit";
 import { mysqlconnFn } from "$lib/db/mysql";
 import { genSecureHash, checkPass } from "$lib/security.js";
 
-let id;
 
 export const load = async ( { params }) => {
-    id = params.id;
+    let id = params.id;
     const token = params.token;
 
     // Pull reset token for a specific user
     let mysqlconn = await mysqlconnFn();
 
-    const sql = "SELECT reset_token FROM users WHERE id = ?"
+    const sql = "SELECT id, reset_token FROM users WHERE id = ?"
     const values = [id]
     const [result, fields] = await mysqlconn.query(sql, values);
 
@@ -29,6 +28,9 @@ export const load = async ( { params }) => {
     if (!passCheck) {
         redirect(302, "/");
     }
+    return {
+        result
+    }
 }
 
 export const actions = {
@@ -36,7 +38,8 @@ export const actions = {
         const data = await request.formData();
         const password = data.get("password");
         const confirm = data.get("confirm");
-
+        const id = data.get("id");
+        
         // Verify that there was user input
         if (!password || !confirm) {
             return {
