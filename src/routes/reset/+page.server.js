@@ -50,7 +50,7 @@ export const actions = {
         Someone has requested a password reset.
         
         Use this link to reset your password:
-        http://localhost:5173/reset/${id}/${token}
+        https://changelingvr-web.vercel.app/reset/${id}/${token}
 
         If this was a mistake, just ignore this email and nothing will happen.
 
@@ -62,7 +62,7 @@ export const actions = {
         <p>Someone has requested a password reset.</p?
         
         <p>Use this link to reset your password:<br>
-        <a target="_blank" href="http://localhost:5173/reset/${id}/${token}">http://localhost:5173/reset/${id}/${token}</a></p>
+        <a target="_blank" href="https://changelingvr-web.vercel.app/reset/${id}/${token}">https://changelingvr-web.vercel.app/reset/${id}/${token}</a></p>
 
         <p>If this was a mistake, just ignore this email and nothing will happen.</p>
 

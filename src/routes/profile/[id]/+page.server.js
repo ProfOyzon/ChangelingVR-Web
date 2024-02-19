@@ -35,7 +35,6 @@ export const actions = {
         const data = await request.formData();
         const name = data.get("name");
         const email = data.get("email");
-        // const pfp = data.get("pfp-string");
         const bio = data.get("bio");
         const years = data.getAll("years").toString();
         const teams = data.getAll("teams").toString();

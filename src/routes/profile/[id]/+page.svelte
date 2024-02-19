@@ -55,11 +55,9 @@
             ctx.drawImage(img, 0, 0, wantedDim, wantedDim);
             const resizedImg = canvas.toDataURL(imgType);
 
-            // Change profile image and store base64 string to be sumbitted with form
+            // Change profile image
             const pfpImg = document.querySelector(".pfp");
-            const pfpString = document.querySelector("#pfp-string");
             pfpImg.src = resizedImg;
-            // pfpString.value = resizedImg.split(";base64,").pop();
 
             // Send image to server
             const res = fetch("https://www.changelingvr.com/pfp", {
@@ -109,7 +107,6 @@
                 <div>
                     <label class="pfp-label" for="pfp">Picture:</label>
                     <input on:change={updatePfp} type="file" id="pfp" accept=".jpg, .jpeg, .png">
-                    <input type="hidden" id="pfp-string" name="pfp-string">
                     <div class="pfp-container spacer-top">
                         <img class="pfp" src={data.pfpStatus === 200 ? pfpSrc : defaultPfp} alt="">
                     </div>
