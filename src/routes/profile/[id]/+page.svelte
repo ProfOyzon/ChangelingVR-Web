@@ -101,7 +101,7 @@
                     <input class="input-box" type="email" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
                     <div class="spacer-top">
                         <label class="label-block" for="bio">About Me</label>
-                        <textarea id="bio" name="bio" value={data.results[0].bio} placeholder="About Me" required></textarea>
+                        <textarea id="bio" name="bio" value={data.results[0].bio} placeholder="About Me" maxlength="550" required></textarea>
                     </div>
                 </div>
                 <div>
