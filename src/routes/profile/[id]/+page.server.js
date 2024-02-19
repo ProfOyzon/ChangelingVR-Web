@@ -43,28 +43,20 @@ export const actions = {
         const portfolio = data.get("portfolio");
         const github = data.get("github");
         const linkedin = data.get("linkedin");
-
-        let pfpBase64;
+        
         if (pfp) {
-            // Get base64 string of cropped image without metadata
-            let parts = pfp.split(';');
-            let mimType = parts[0].split(':')[1];
-            let imageData = parts[1].split(',')[1];
-        
-            pfpBase64 = imageData;
+            // Send image to server
+            const res = await fetch("https://www.changelingvr.com/pfp", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ 
+                    id: id,
+                    base64: pfp
+                }),
+            });
         }
-        
-        // Send image to server
-        const res = await fetch("https://www.changelingvr.com/pfp", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-        },
-            body: JSON.stringify({ 
-                id: id,
-                base64: pfpBase64
-            }),
-        });
     
         let mysqlconn = await mysqlconnFn();
 
