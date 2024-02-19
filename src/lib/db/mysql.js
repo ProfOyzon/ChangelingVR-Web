@@ -10,8 +10,7 @@ export const mysqlconnFn = () => {
             host: DB_HOST,
             user: DB_USER,
             password: DB_PASS,
-            database: DB_NAME,
-            port: 3306
+            database: DB_NAME
         });
     }
 

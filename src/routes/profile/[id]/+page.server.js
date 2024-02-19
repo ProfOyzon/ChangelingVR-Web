@@ -35,7 +35,7 @@ export const actions = {
         const data = await request.formData();
         const name = data.get("name");
         const email = data.get("email");
-        const pfp = data.get("pfp-string");
+        // const pfp = data.get("pfp-string");
         const bio = data.get("bio");
         const years = data.getAll("years").toString();
         const teams = data.getAll("teams").toString();
@@ -43,20 +43,6 @@ export const actions = {
         const portfolio = data.get("portfolio");
         const github = data.get("github");
         const linkedin = data.get("linkedin");
-        
-        if (pfp) {
-            // Send image to server
-            const res = await fetch("https://www.changelingvr.com/pfp", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ 
-                    id: id,
-                    base64: pfp
-                }),
-            });
-        }
     
         let mysqlconn = await mysqlconnFn();
 

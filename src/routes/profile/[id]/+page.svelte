@@ -59,7 +59,19 @@
             const pfpImg = document.querySelector(".pfp");
             const pfpString = document.querySelector("#pfp-string");
             pfpImg.src = resizedImg;
-            pfpString.value = resizedImg.split(";base64,").pop();
+            // pfpString.value = resizedImg.split(";base64,").pop();
+
+            // Send image to server
+            const res = fetch("https://www.changelingvr.com/pfp", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ 
+                    id: data.results[0].id,
+                    base64: resizedImg.split(";base64,").pop()
+                }),
+            });
         }
 
         // Close modal
