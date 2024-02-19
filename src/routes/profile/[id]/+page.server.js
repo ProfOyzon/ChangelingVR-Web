@@ -1,9 +1,7 @@
 import { mysqlconnFn } from "$lib/db/mysql";
 
-let id;
-
 export const load = async ( { params }) => {
-    id = params.id;
+    let id = params.id;
     let mysqlconn = await mysqlconnFn();
     
     // Fetch user's image and check status code for availability 
@@ -34,6 +32,7 @@ export const actions = {
         // Get values from input fields
         const data = await request.formData();
         const name = data.get("name");
+        const id = data.get("id");
         const email = data.get("email");
         const bio = data.get("bio");
         const years = data.getAll("years").toString();
@@ -42,7 +41,7 @@ export const actions = {
         const portfolio = data.get("portfolio");
         const github = data.get("github");
         const linkedin = data.get("linkedin");
-    
+        
         let mysqlconn = await mysqlconnFn();
 
         // Update user's data in database
