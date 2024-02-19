@@ -21,6 +21,13 @@ export const actions = {
         // Add a new user to database
         try {
             let values = (await mysqlconn.query(`SELECT email, password, id from users WHERE email="${email}"`))[0][0];
+            
+            if (values === undefined){
+                return {
+                    message: "Invalid Credentials"
+                }
+            }
+
             password = values.password;
             id = values.id;
         }
@@ -47,7 +54,7 @@ export const actions = {
             redirect(303, `/profile/${id}`);
         }
         else{
-            return { message: "Incorrect Credentials" };
+            return { message: "Invalid Credentials" };
         }
     }
 }
