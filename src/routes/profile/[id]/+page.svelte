@@ -59,7 +59,7 @@
             const pfpImg = document.querySelector(".pfp");
             const pfpString = document.querySelector("#pfp-string");
             pfpImg.src = resizedImg;
-            pfpString.value = resizedImg;
+            pfpString.value = resizedImg.split(";base64,").pop();
         }
 
         // Close modal
