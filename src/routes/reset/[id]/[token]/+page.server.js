@@ -20,6 +20,10 @@ export const load = async ( { params }) => {
         redirect(302, "/");
     }
 
+    if (!token || !result[0].reset_token){
+        redirect(302, "/");
+    }
+
     // Redirect if token doesn't match database token
     const passCheck = await checkPass(token, result[0].reset_token); 
     if (!passCheck) {
