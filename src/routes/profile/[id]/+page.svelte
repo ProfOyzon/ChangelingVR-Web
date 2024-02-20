@@ -95,7 +95,6 @@
         <div class="container">
             <div class="grid-2">
                 <div>
-                    <input type="hidden" name="id" value={data.results[0].id}>
                     <label class="label-block" for="name">Name</label>
                     <input class="input-box" type="text" id="name" name="name" value={data.results[0].username} placeholder="Name" required>
                     <label class="label-block spacer-top" for="email">Contact Email</label>

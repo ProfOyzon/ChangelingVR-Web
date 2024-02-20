@@ -4,7 +4,7 @@ import { genSecureHash, checkPass } from "$lib/security.js";
 
 
 export const load = async ( { params }) => {
-    let id = params.id;
+    const id = params.id;
     const token = params.token;
 
     // Pull reset token for a specific user
@@ -34,11 +34,11 @@ export const load = async ( { params }) => {
 }
 
 export const actions = {
-    default: async ({ request }) => {
+    default: async ({ request, params }) => {
+        const id = params.id;
         const data = await request.formData();
         const password = data.get("password");
         const confirm = data.get("confirm");
-        const id = data.get("id");
         
         // Verify that there was user input
         if (!password || !confirm) {
