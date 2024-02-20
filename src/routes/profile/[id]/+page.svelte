@@ -360,4 +360,22 @@
     dialog::backdrop {
         background-color: rgba(0, 0, 0, .85);
     }
+
+    /* Media Queries */
+    @media (max-width: 975px) {
+        .grid-2 {
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+
+        form {
+            padding-bottom: 1rem;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .grid-3 {
+            gap: .5rem 1.5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
 </style>
