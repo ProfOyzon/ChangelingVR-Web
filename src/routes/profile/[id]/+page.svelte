@@ -377,5 +377,14 @@
             gap: .5rem 1.5rem;
             grid-template-columns: repeat(2, minmax(0, 1fr));
         }
+
+        .cropper-container {
+            width: 256px;
+            height: 256px;
+        }
+
+        .btn {
+            font-size: 1rem;
+        }
     }
 </style>
