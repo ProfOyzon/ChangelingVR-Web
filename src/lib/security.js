@@ -23,7 +23,7 @@ const giveRandPepper = (pass) => (`${pass}${genPepper()}`);
  * @param {string} pass Password to Pepper and Salt Hash
  * @returns {string} The hashed password
  */
-export const genSecureHash = async(pass) => (await hash(giveRandPepper(pass), 10));
+export const genSecureHash = async(pass) => (await hash(pass, 12));
 
 /** 
  * An array of all possible pepper values
@@ -56,7 +56,7 @@ const arrOfPassCheck = async(pass, hashedPass) => (Promise.all(genAllPepper().ma
  * @param {string} hashedPass Hashed Password
  * @returns {Promise<Boolean>} Whether or not the password matches the stored password
  */
-export const checkPass = async(pass, hashedPass) => ((await arrOfPassCheck(pass, hashedPass)).includes(true));
+export const checkPass = async(pass, hashedPass) => (await compare(pass, hashedPass));
 
 /**
  * Creates a SessionUser based on id and email
