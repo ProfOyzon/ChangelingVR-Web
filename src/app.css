@@ -1,3 +1,27 @@
 body{
-    background-color: black;
+    background-color: white;
+    background-image: url(/Web_BackgroundSky.png);
+    font-family: 'Open Sans', sans-serif;
+}
+
+div{
+    border-style: none;
+}
+
+form{
+    background-color: #ffcc70;
+}
+
+form input{
+    background-color: antiquewhite;
+}
+
+form textarea{
+    background-color: antiquewhite;
+}
+
+form .pfp{
+    border-style: groove;
+    border-width: medium;
+    border-color: darkgrey;
 }

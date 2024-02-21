@@ -30,7 +30,9 @@ export const load = async ( { params }) => {
 }
 
 export const actions = {
-    default: async ({ request, fetch }) => {
+    default: async (e) => {
+        console.log(e);
+        let { request, fetch } = e;
         // Get values from input fields
         const data = await request.formData();
         const name = data.get("name");
