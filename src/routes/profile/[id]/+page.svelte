@@ -14,6 +14,8 @@
     let image;
     let cropper;
     let imgType;
+    const maxText = 550;
+    let charStr = `${data.results[0].bio.length} / ${maxText}`;
     
     const updatePfp = (e) => {
         imgType = e.target.files[0].type;
@@ -83,6 +85,11 @@
         pfpInput.value = "";
         modal.close();
     }    
+
+    const charCounter = () => {
+        const textareaContent = document.querySelector("#bio");
+        charStr = `${textareaContent.value.length} / ${maxText}`
+    }
 </script>
     
 <svelte:head>
@@ -100,8 +107,11 @@
                     <label class="label-block spacer-top" for="email">Contact Email</label>
                     <input class="input-box" type="email" id="email" name="email" value={data.results[0].link_email} placeholder="Email" required>
                     <div class="spacer-top">
-                        <label class="label-block" for="bio">About Me</label>
-                        <textarea id="bio" name="bio" value={data.results[0].bio} placeholder="About Me" maxlength="550" required></textarea>
+                        <div class="textarea-label-container">
+                            <label class="label-block" for="bio">About Me</label>
+                            <span id="char-str">{charStr}</span>
+                        </div>
+                        <textarea on:input={charCounter} id="bio" name="bio" value={data.results[0].bio} placeholder="About Me" maxlength={maxText} required></textarea>
                     </div>
                 </div>
                 <div>
@@ -324,6 +334,12 @@
     .btn {
         font-size: 1.25rem;
         padding: .25rem .5rem;
+    }
+
+    .textarea-label-container {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.25rem;
     }
 
     .pfp-container {
