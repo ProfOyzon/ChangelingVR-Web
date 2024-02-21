@@ -34,6 +34,15 @@ export const actions = {
         const hashPass = await genSecureHash(confirm);
         let mysqlconn = await mysqlconnFn();
 
+        const emailCheckQuery = await mysqlconn.query(`SELECT * FROM users WHERE email = "${email}"`);
+
+        if (emailCheckQuery[0][0] !== undefined){
+            return {
+                message: "Email address already in use"
+            }
+        }
+
+
         // Add a new user to database
         try {
             const sql = "INSERT INTO users (email, password) VALUE (?, ?)";
