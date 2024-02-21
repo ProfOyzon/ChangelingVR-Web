@@ -19,6 +19,7 @@ div{
 
 form{
     background-color: #ffcc70;
+    border-radius: 10px;
 }
 
 form input{
