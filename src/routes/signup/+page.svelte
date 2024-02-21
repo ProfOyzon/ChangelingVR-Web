@@ -4,7 +4,7 @@
 
 <div class="wrapper">
     <form method="POST">
-        <p>{ form?.message || "" }</p>
+        <p class="message">{ form?.message || "" }</p>
         
         <div class="container">
             <label for="email">RIT Email</label>
@@ -35,7 +35,7 @@
 
     input {
         width: 100%;
-        height: 1.5rem;
+        height: 1.8rem;
     }
 
     input:focus {
@@ -52,8 +52,8 @@
 
     .container {
         padding: 1rem 2rem;
-        border-radius: .5rem;
-        border: solid lightgray 1px;
+        /* border-radius: .5rem;
+        border: solid lightgray 1px; */
     }
 
     .spacer-top {

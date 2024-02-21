@@ -91,7 +91,7 @@
 
 <div class="wrapper">
     <form method="POST" enctype="multipart/form-data">
-        <p>{ form?.message || "" }</p>
+        <p class="message">{ form?.message || "" }</p>
         <div class="container">
             <div class="grid-2">
                 <div>
@@ -288,8 +288,8 @@
 
     .container {
         padding: 1rem;
-        border-radius: .5rem;
-        border: solid lightgray 1px;
+        /* border-radius: .5rem;
+        border: solid lightgray 1px; */
     }
 
     .grid-2 {
@@ -315,7 +315,7 @@
 
     .input-box {
         width: 100%;
-        height: 1.5rem;
+        height: 1.8rem;
     }
 
     .category-name {
@@ -345,6 +345,10 @@
     .img-cropping {
         display: block;
         max-width: 100%;
+    }
+
+    .pfp-modal{
+        background-color: #ffcc70;
     }
 
     .cropper-container {

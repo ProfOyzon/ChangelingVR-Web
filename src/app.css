@@ -1,0 +1,37 @@
+body{
+    background-color: white;
+    background-image: url(/Web_BackgroundSky.png);
+    font-family: 'Open Sans', sans-serif;
+}
+
+.message{
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+button{
+    background-color: navajowhite;
+}
+
+div{
+    border-style: none;
+}
+
+form{
+    background-color: #ffcc70;
+}
+
+form input{
+    background-color: antiquewhite;
+    box-sizing: border-box;
+}
+
+form textarea{
+    background-color: antiquewhite;
+}
+
+form .pfp{
+    border-style: groove;
+    border-width: medium;
+    border-color: darkgrey;
+}
