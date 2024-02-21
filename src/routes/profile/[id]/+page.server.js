@@ -42,6 +42,10 @@ export const actions = {
         const github = data.get("github");
         const linkedin = data.get("linkedin");
 
+        if (bio.length > 550) {
+            return {message: "Stop trying to cheat the system!!!"}
+        }
+
         let mysqlconn = await mysqlconnFn();
 
         // Update user's data in database
