@@ -288,8 +288,6 @@
 
     .container {
         padding: 1rem;
-        /* border-radius: .5rem;
-        border: solid lightgray 1px; */
     }
 
     .grid-2 {

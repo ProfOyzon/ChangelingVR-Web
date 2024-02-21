@@ -52,8 +52,6 @@
 
     .container {
         padding: 1rem 2rem;
-        /* border-radius: .5rem;
-        border: solid lightgray 1px; */
     }
 
     .spacer-top {

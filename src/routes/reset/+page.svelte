@@ -47,8 +47,6 @@
         width: auto;
         margin: 1rem 2rem;
         margin-bottom: 40px;
-        /* border-radius: .5rem;
-        border: solid lightgray 1px; */
     }
 
     .spacer-top {
