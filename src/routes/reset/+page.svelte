@@ -5,7 +5,7 @@
 
 <div class="wrapper">
     <form method="POST" use:enhance>
-        <p>{ form?.message || "" }</p>
+        <p class="message">{ form?.message || "" }</p>
         
         <div class="container">
             <h1>Forgot Password</h1>
@@ -27,7 +27,7 @@
 
     input {
         width: 100%;
-        height: 1.5rem;
+        height: 1.8rem;
     }
 
     input:focus {
@@ -43,7 +43,10 @@
     }
 
     .container {
-        padding: 1rem 2rem;
+        max-width: 750px;
+        width: auto;
+        margin: 1rem 2rem;
+        margin-bottom: 40px;
         /* border-radius: .5rem;
         border: solid lightgray 1px; */
     }

@@ -4,6 +4,15 @@ body{
     font-family: 'Open Sans', sans-serif;
 }
 
+.message{
+    padding-left: 20px;
+    font-weight: bold;
+}
+
+button{
+    background-color: navajowhite;
+}
+
 div{
     border-style: none;
 }
@@ -14,6 +23,7 @@ form{
 
 form input{
     background-color: antiquewhite;
+    box-sizing: border-box;
 }
 
 form textarea{

@@ -9,7 +9,7 @@
 
 <div class="wrapper">
     <form method="POST">
-        <p>{ form?.message || "" }</p>
+        <p class="message">{ form?.message || "" }</p>
         
         <div class="container">
             <h1>Reset Your Password</h1>
@@ -35,7 +35,7 @@
 
     input {
         width: 100%;
-        height: 1.5rem;
+        height: 1.8rem;
     }
 
     input:focus {

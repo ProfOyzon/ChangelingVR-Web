@@ -4,7 +4,7 @@
 
 <div class="wrapper">
     <form method="POST">
-        <p>{ form?.message || "" }</p>
+        <p class="message">{ form?.message || "" }</p>
         
         <div class="container">
             <label for="email">Email</label>
@@ -32,7 +32,7 @@
 
     input {
         width: 100%;
-        height: 1.5rem;
+        height: 1.8rem;
     }
 
     input:focus {
