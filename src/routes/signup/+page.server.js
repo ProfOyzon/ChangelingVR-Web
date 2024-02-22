@@ -7,9 +7,9 @@ import { redirect } from "@sveltejs/kit";
 export const actions = {
     emailToken: async ({ request }) => {
         const data = await request.formData();
-        const email = data.get("email");
-        const password = data.get("password");
-        const confirm = data.get("confirm");
+        const email = data.get("email").trim();
+        const password = data.get("password").trim();
+        const confirm = data.get("confirm").trim();
         const validEmails = ["@rit.edu", "@g.rit.edu"]
 
         // Verify that there was user input

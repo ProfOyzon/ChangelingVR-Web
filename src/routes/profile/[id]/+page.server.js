@@ -32,15 +32,15 @@ export const actions = {
         // Get values from input fields
         const id = params.id;
         const data = await request.formData();
-        const name = data.get("name");
-        const email = data.get("email");
-        const bio = data.get("bio");
+        const name = data.get("name").trim();
+        const email = data.get("email").trim();
+        const bio = data.get("bio").trim();
         const years = data.getAll("years").toString();
         const teams = data.getAll("teams").toString();
         const roles = data.getAll("roles").toString();
-        const portfolio = data.get("portfolio");
-        const github = data.get("github");
-        const linkedin = data.get("linkedin");
+        const portfolio = data.get("portfolio").trim();
+        const github = data.get("github").trim();
+        const linkedin = data.get("linkedin").trim();
 
         if (bio.length > 550) {
             return {message: "Stop trying to cheat the system!!!"}

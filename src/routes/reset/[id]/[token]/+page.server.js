@@ -37,8 +37,8 @@ export const actions = {
     default: async ({ request, params }) => {
         const id = params.id;
         const data = await request.formData();
-        const password = data.get("password");
-        const confirm = data.get("confirm");
+        const password = data.get("password").trim();
+        const confirm = data.get("confirm").trim();
         
         // Verify that there was user input
         if (!password || !confirm) {

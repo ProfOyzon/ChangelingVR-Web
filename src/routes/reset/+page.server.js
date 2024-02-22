@@ -6,7 +6,7 @@ import { genSecureHash } from "$lib/security.js";
 export const actions = {
     default: async ({ request }) => {
         const data = await request.formData();
-        const email = data.get("email");
+        const email = data.get("email").trim();
 
         // Verify that there was user input
         if (!email) {

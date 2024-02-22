@@ -6,8 +6,8 @@ export const actions = {
     default: async (event) => {
         const request = event["request"];
         const data = await request.formData();
-        const email = data.get("email");
-        const givenPassword = data.get("password");
+        const email = data.get("email").trim();
+        const givenPassword = data.get("password").trim();
 
         // Verify that there was user input
         if (!email || !givenPassword) {
