@@ -49,8 +49,6 @@ export const actions = {
             const user = sessionUser(id, email);
             event.locals.user = user;
 
-            console.log("from login: " + event.locals);
-
             redirect(303, `/profile/${id}`);
         }
         else{

@@ -87,7 +87,7 @@ export const actions = {
             });
         }
         
-        await sendEmail(message);
+        sendEmail(message);
 
         return { 
             message: `To complete sign up, enter the token that will momentarily be emailed to ${email}`,
