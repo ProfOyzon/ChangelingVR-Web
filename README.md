@@ -1,8 +1,11 @@
 ## Team (Spring 2024)
-| Name                | Role           |
-|---------------------|----------------|
-| James Feng          | Web Developer  |
-| Lawrence Liang      | Web Developer  |
+| Name                | Role           |  E-mail                |
+|---------------------|----------------| -----------------------|
+| James Feng          | Web Developer  | jamesfeng51@gmail..com |
+| Lawrence Liang      | Web Developer  | ll4416@rit.edu         |
+
+## Documentation
+- [Documentation](https://docs.google.com/document/d/1TDNj4w9Olk9Ka6Qygmvo0Ts_C8-Oey0fIXDDR9wXqXs/edit?usp=sharing)
 
 ## Libraries
 - [Bcrypt](https://github.com/kelektiv/node.bcrypt.js) (version `5.1.1`)
