@@ -1,7 +1,7 @@
 ## Team (Spring 2024)
 | Name                | Role           |  E-mail                |
 |---------------------|----------------| -----------------------|
-| James Feng          | Web Developer  | jamesfeng51@gmail..com |
+| James Feng          | Web Developer  | jamesfeng51@gmail.com  |
 | Lawrence Liang      | Web Developer  | ll4416@rit.edu         |
 
 ## Documentation
