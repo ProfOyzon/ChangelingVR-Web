@@ -18,4 +18,4 @@ transporter.verify( (error, success) => {
     } else {
       console.log("Server is ready to take our messages");
     }
-  });
+});
