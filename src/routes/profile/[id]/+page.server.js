@@ -5,7 +5,7 @@ export const load = async ( { params }) => {
     let mysqlconn = await mysqlconnFn();
     
     // Fetch user's image and check status code for availability 
-    const res = await fetch(`https://www.changelingvr.com/assets/images/team/${id}.jpg`);
+    const res = await fetch(`https://www.changelingvr.com/statics/assets/images/team/${id}.jpg`);
     const pfpStatus = res.status;
     
     // Pull data for a specific user
