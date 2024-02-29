@@ -69,7 +69,7 @@
                 },
                 body: JSON.stringify({ 
                     id: data.results[0].id,
-                    base64: resizedImg.split(";base64,").pop()
+                    raw: resizedImg.split(";base64,").pop()
                 }),
             });
         }
