@@ -8,7 +8,7 @@
     let years = data.results[0].terms.split(",");
     let teams = data.results[0].teams.split(",");
     let roles = data.results[0].roles.split(",");
-    let pfpSrc = `https://www.changelingvr.com/statics/assets/images/team/${data.results[0].id}.jpg`;
+    let pfpSrc = `https://www.changelingvr.com/assets/images/team/${data.results[0].id}.jpg`;
     const defaultPfp = "/silhouetteAvatar2.png";
 
     let image;
