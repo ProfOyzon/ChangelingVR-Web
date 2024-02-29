@@ -36,7 +36,6 @@ export const actions = {
             return error;
         }
 
-        
         if ((await checkPass(givenPassword, password))){
             event.cookies.set('AuthorizationToken', `Bearer ${jwtToken(id, email)}`, {
                 httpOnly: true,
