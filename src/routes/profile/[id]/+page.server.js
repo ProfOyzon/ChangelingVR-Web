@@ -1,6 +1,6 @@
 import { mysqlconnFn } from "$lib/db/mysql";
 import { redirect } from "@sveltejs/kit";
-import { verifyJWT, validateLogin } from "$lib/security.js";
+import { validateLogin } from "$lib/security.js";
 
 export const load = async ( { params }) => {
     const id = params.id;
