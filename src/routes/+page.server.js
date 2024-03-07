@@ -1,5 +1,5 @@
 import { mysqlconnFn } from "$lib/db/mysql";
-import { checkPass, sessionUser, jwtToken } from "$lib/security.js";
+import { checkPass, generateSessionUser, generateJwtToken } from "$lib/security.js";
 import { redirect } from "@sveltejs/kit"
 
 export const actions = {
@@ -37,7 +37,7 @@ export const actions = {
         }
 
         if ((await checkPass(givenPassword, password))){
-            event.cookies.set('AuthorizationToken', `Bearer ${jwtToken(id, email)}`, {
+            event.cookies.set('AuthorizationToken', `Bearer ${generateJwtToken(id, email)}`, {
                 httpOnly: true,
                 path: '/',
                 secure: true,
@@ -45,7 +45,7 @@ export const actions = {
                 maxAge: 60 * 60 * 24 // 1 day
             });
 
-            const user = sessionUser(id, email);
+            const user = generateSessionUser(id, email);
             event.locals.user = user;
 
             redirect(303, `/profile/${id}`);

@@ -1,4 +1,6 @@
 import { mysqlconnFn } from "$lib/db/mysql";
+import { redirect } from "@sveltejs/kit";
+import { verifyJWT, validateLogin } from "$lib/security.js";
 
 export const load = async ( { params }) => {
     const id = params.id;
@@ -28,7 +30,12 @@ export const load = async ( { params }) => {
 }
 
 export const actions = {
-    default: async ({ request, params }) => {
+    submit: async (event) => {
+        const { request, params } = event;
+
+        // Check that the cookies are still valid
+        if (validateLogin(event)) redirect(303, `/`);
+
         // Get values from input fields
         const id = params.id;
         const data = await request.formData();
@@ -60,5 +67,10 @@ export const actions = {
         }
 
         return { message: "Saved Edits" };
+    },
+
+    logOut: async (event) => {
+        event.cookies.delete('AuthorizationToken', { path: '/' });
+        redirect(303, `/`);
     }
 }

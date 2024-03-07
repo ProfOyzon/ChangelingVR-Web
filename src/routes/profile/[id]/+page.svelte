@@ -90,6 +90,7 @@
         const textareaContent = document.querySelector("#bio");
         charStr = `${textareaContent.value.length} / ${maxText}`
     }
+
 </script>
     
 <svelte:head>
@@ -97,7 +98,7 @@
 </svelte:head>
 
 <div class="wrapper">
-    <form method="POST" enctype="multipart/form-data">
+    <form action="?/submit" method="POST" enctype="multipart/form-data">
         <p class="message">{ form?.message || "" }</p>
         <div class="container">
             <div class="grid-2">
@@ -271,8 +272,9 @@
                 </div>
             </div>
             
-            <div class="spacer-top">
+            <div class="spacer-top flex">
                 <button class="btn" type="submit">Save</button>
+                <button class="btn" formaction="?/logOut" value="ignore" formnovalidate>Log Out</button>
             </div>
         </div>
     </form>
@@ -334,6 +336,11 @@
     .btn {
         font-size: 1.25rem;
         padding: .25rem .5rem;
+    }
+
+    .flex{
+        display:flex;
+        justify-content:space-between;
     }
 
     .textarea-label-container {

@@ -65,7 +65,7 @@ export const checkPass = async(pass, hashedPass) => (await compare(pass, hashedP
  * @param {string} email Email of user in database
  * @returns {SessionUser} Object holding ID and Email
  */
-export const sessionUser = (id,email) => ({id, email});
+export const generateSessionUser = (id,email) => ({id, email});
 
 /**
  * Generates a JWT Token based on id, email, and access secret
@@ -75,12 +75,80 @@ export const sessionUser = (id,email) => ({id, email});
  * @param {string} expirationTime Time until expired, default is '1d'
  * @returns Generated JWT Token
  */
-export const jwtToken = (id, email, expirationTime = '1d') => (jwt.sign(sessionUser(id,email), JWT_ACCESS_SECRET, { expiresIn: expirationTime }));
+export const generateJwtToken = (id, email, expirationTime = '1d') => (jwt.sign(generateSessionUser(id,email), JWT_ACCESS_SECRET, { expiresIn: expirationTime }));
 
 /**
- * If JWT is true
+ *  Decodes JWT 
  * 
- * @param {string} token JWT
- * @returns {boolean} If JWT is true
+ * @param {string} token Encoded JWT
+ * @returns If false returns undefined
  */
-export const verifyJWT = (token) => (jwt.verify(token, JWT_ACCESS_SECRET));
+export const verifyJWT = (encodedJWT) => (jwt.verify(encodedJWT, JWT_ACCESS_SECRET));
+
+/**
+ * Parse cookies from headers
+ * @param {*} requestHeaders 
+ * @returns 
+ */
+const getCookies = (requestHeaders) => requestHeaders.get("cookie") ?? undefined;
+
+/**
+ * Parses cookies and removes metadata for the AuthorizationToken
+ * 
+ * @param {*} requestHeaders 
+ * @returns 
+ */
+const getToken = (requestHeaders) => getCookies(requestHeaders) ? getCookies(requestHeaders).substring(getCookies(requestHeaders).indexOf("%20") + 3) : undefined;
+
+/**
+ *  Runs verifyJWT in a try catch 
+ * 
+ * @param {*} encodedJWT Encoded JWT
+ * @returns Decoded JWT
+ */
+const getDecodedJWT = (encodedJWT) => {
+    let jwtUser = "";
+	try {
+		jwtUser = verifyJWT(encodedJWT);
+	}
+	catch (error){
+		jwtUser = undefined;
+	}
+    return jwtUser;
+}
+
+/**
+ * Parses JWT from RequestEvent
+ * 
+ * @param {*} requestEvent 
+ * @returns Decoded JWT
+ */
+const getJWTFromEvent = (requestEvent) => getDecodedJWT(getToken(requestEvent.request.headers));
+
+/**
+ * Checks the expiry of the JWT in case user tampered with cookies
+ * 
+ * @param {*} decodedJWT Decoded JWT
+ * @returns {Boolean}
+ */
+const checkExpiryOnJWT = (decodedJWT) => decodedJWT?.exp > (Date.now() / 1000);
+
+/**
+ * Compares the profile URL to JWT ID
+ * 
+ * @param {*} decodedJWT Decoded JWT
+ * @param {*} requestEvent 
+ * @returns {Boolean}
+ */
+const compareJWTtoURL = (decodedJWT, requestEvent) => requestEvent.url.pathname.substring(requestEvent.url.pathname.indexOf("profile/") + 8) == decodedJWT.id;
+
+/**
+ * Validates authorization token and compares it to URL
+ * 
+ * @param {*} requestEvent 
+ * @returns {boolean}
+ */
+export const validateLogin = (requestEvent) => {
+    const decodedJWT = getJWTFromEvent(requestEvent);
+    return decodedJWT?.id && checkExpiryOnJWT(decodedJWT) && compareJWTtoURL(decodedJWT, requestEvent);
+}
