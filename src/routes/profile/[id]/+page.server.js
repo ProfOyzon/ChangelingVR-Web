@@ -34,7 +34,7 @@ export const actions = {
         const { request, params } = event;
 
         // Check that the cookies are still valid
-        if (validateLogin(event)) redirect(303, `/`);
+        if (!validateLogin(event)) redirect(303, `/`);
 
         // Get values from input fields
         const id = params.id;
