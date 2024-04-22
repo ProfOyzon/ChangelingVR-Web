@@ -6,6 +6,7 @@ import { redirect } from "@sveltejs/kit";
 
 export const actions = {
     emailToken: async ({ request }) => {
+        // Get values from input fields
         const data = await request.formData();
         const email = data.get("email").trim();
         const password = data.get("password").trim();
@@ -98,6 +99,7 @@ export const actions = {
         };
     },
     verify: async ({ request }) => {
+        // Get values from input fields
         const data = await request.formData();
         const email = data.get("email");
         const confirm = data.get("confirm");

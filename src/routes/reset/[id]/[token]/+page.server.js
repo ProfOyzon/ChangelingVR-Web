@@ -4,6 +4,7 @@ import { genSecureHash, checkPass } from "$lib/security.js";
 
 
 export const load = async ( { params }) => {
+    // Get data from url
     const id = params.id;
     const token = params.token;
 
@@ -35,7 +36,10 @@ export const load = async ( { params }) => {
 
 export const actions = {
     default: async ({ request, params }) => {
+        // Get data from url
         const id = params.id;
+        
+        // Get values from input fields
         const data = await request.formData();
         const password = data.get("password").trim();
         const confirm = data.get("confirm").trim();

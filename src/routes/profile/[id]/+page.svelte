@@ -5,15 +5,18 @@
     export let data;
     export let form;
 
+    // Arrays for syncing checkboxes
     let years = data.results[0].terms.split(",");
     let teams = data.results[0].teams.split(",");
     let roles = data.results[0].roles.split(",");
+
     let pfpSrc = `https://www.changelingvr.com/assets/images/team/${data.results[0].id}.jpg`;
     const defaultPfp = "/silhouetteAvatar2.png";
 
     let image;
     let cropper;
     let imgType;
+
     const maxText = 550;
     let charStr = `${data.results[0].bio.length} / ${maxText}`;
     
@@ -61,7 +64,7 @@
             const pfpImg = document.querySelector(".pfp");
             pfpImg.src = resizedImg;
 
-            // Send image to server
+            // Send image to dreamhost server
             const res = fetch("https://www.changelingvr.com/pfp", {
                 method: "PUT",
                 headers: {

@@ -5,6 +5,7 @@ import { genSecureHash } from "$lib/security.js";
 
 export const actions = {
     default: async ({ request }) => {
+        // Get values from input fields
         const data = await request.formData();
         const email = data.get("email").trim();
 
